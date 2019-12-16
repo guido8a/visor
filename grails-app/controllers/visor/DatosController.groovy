@@ -138,7 +138,9 @@ class DatosController {
         def magn
         def sqlp
 
-        def directorio = '/home/guido/proyectos/visor/dataIUV/'
+//        def directorio = '/home/guido/proyectos/visor/dataIUV/'
+        def directorio = '/home/data/dataIUV/'
+
 //        procesa = 10
 //        crea_log = false
         procesa = 100000000
