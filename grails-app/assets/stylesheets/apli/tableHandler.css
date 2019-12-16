@@ -1,0 +1,24 @@
+.editable {
+    background    : url(../images/edit.gif) right no-repeat;
+    padding-right : 18px !important;
+}
+
+.selected {
+    border : solid 2px blue !important;
+}
+
+td.precio, th.precio {
+    width : 150px;
+}
+
+td.delete, th.delete {
+    width : 60px;
+}
+
+.ok {
+    background : #55AB55 !important;
+}
+
+.no {
+    background : #C23A33 !important;
+}

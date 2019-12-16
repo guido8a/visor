@@ -1,0 +1,14 @@
+div.jGrowl div.manilla {
+    background-color : #FFF1C2;
+    color            : navy;
+}
+
+div.jGrowl div.success {
+    background-color : #78c654;
+    color            : #243e1a;
+}
+
+div.jGrowl div.error {
+    background-color : #97464b;
+    color            : #2e0909;
+}

@@ -1,0 +1,924 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/grails-app/controllers/visor/DatosController.groovy" line="183" mnemonic="5" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5d72aed6-4125-4e29-9db5-f3a0ce9c10ad" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/grails-app/assets/images/apli/apagar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grails-app/assets/images/apli/corpaire.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grails-app/assets/images/apli/direccion.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grails-app/assets/images/apli/herencia.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grails-app/assets/images/apli/metereologico.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grails-app/assets/images/apli/radiación.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grails-app/controllers/visor/DatosController.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/assets/images/apli/actividades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/assets/images/apli/agenda.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/assets/images/apli/bitacora_fi.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/assets/images/apli/bitacora_fi1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/assets/images/apli/compras.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/assets/images/apli/conocimiento.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/assets/images/apli/kbase-bk.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/assets/images/apli/kbase.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/assets/images/apli/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/assets/images/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/assets/images/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/assets/images/skin/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/assets/images/skin/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/conf/application.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/conf/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/conf/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/AdministracionController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/CantonController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/CodigoComprasPublicasController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/ComunidadController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/DepartamentoItemController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/GrupoController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/ItemController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/MantenimientoItemsController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/ParroquiaController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/ProgramacionController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/ProvinciaController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/SubgrupoItemsController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/TipoAdquisicionController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/TipoListaController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/TransporteController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/UnidadController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/UrlMappings.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/controllers/visor/UrlMappings.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/compras/ZonaController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/seguridad/AccionesController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/seguridad/DepartamentoController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/seguridad/DireccionController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/seguridad/InicioController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/controllers/seguridad/InicioController.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/seguridad/LoginController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/controllers/seguridad/LoginController.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/seguridad/ModuloController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/seguridad/PersonaController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/seguridad/PrflController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/seguridad/ShieldController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/seguridad/WardInterceptor.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/controllers/seguridad/WardInterceptor.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/utilitarios/ParametrosController.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/audit/Audit.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/audit/Krbs.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/Administracion.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/Alerta.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/Canton.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/CodigoComprasPublicas.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/Comunidad.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/DepartamentoItem.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/Grupo.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/Item.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/Lugar.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/Parroquia.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/PrecioRubrosItems.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/Proforma.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/Programacion.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/Proveedor.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/Provincia.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/SubgrupoItems.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/TipoAdquisicion.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/TipoItem.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/TipoLista.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/Transporte.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/Unidad.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/compras/Zona.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/Accn.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/Accs.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/Ctrl.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/Departamento.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/Direccion.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/Funcion.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/Modulo.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/ParametrosAux.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/Permiso.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/PermisoUsuario.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/Persona.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/PersonaRol.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/Prfl.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/Prms.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/Prpf.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/SesionActiva.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/Sesn.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/seguridad/Tpac.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/utilitarios/Anio.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/utilitarios/DiaLaborable.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/utilitarios/Parametros.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/services/apli/DbConnectionService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/services/apli/DbConnectionService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/services/compras/PreciosService.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/services/compras/ZonaService.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/taglib/ElementosTagLib.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/taglib/ElementosTagLib.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/taglib/MenuTagLib.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/taglib/UtilitariosTagLib.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/taglib/UtilitariosTagLib.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/acciones/acciones.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/acciones/ajaxAcciones.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/acciones/cargarAccionesPerfil.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/acciones/configurarAcciones.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/acciones/perfiles.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/administracion/form_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/administracion/list.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/administracion/tablaAdministracion.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/canton/arbol.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/canton/editarCanton.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/canton/editarComunidad.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/canton/editarParroquia.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/canton/form_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/canton/infoCanton.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/canton/infoComunidad.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/canton/infoParroquia.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/canton/infoProvincia.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/canton/list.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/canton/show_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/codigoComprasPublicas/buscarCodigo.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/codigoComprasPublicas/tablaCodigosCompras.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/comunidad/form_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/comunidad/show_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/departamento/arbol.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/departamento/form_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/departamento/list.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/departamento/show_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/diaLaborable/calendario.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/diaLaborable/error.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/direccion/form_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/direccion/list.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/direccion/tablaDireccion.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/inicio/index.gsp" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/views/inicio/index.gsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/layouts/login.gsp" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/views/layouts/login.gsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/layouts/main.gsp" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/views/layouts/main.gsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/login/login.gsp" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/views/login/login.gsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/calcPrecEq.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/formDepartamento_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/formDp_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/formEditarPrecios_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/formIt_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/formItem_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/formLg_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/formLge_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/formListaPrecios_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/formPrecio_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/formSg_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/formSubGrupo_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/formVa_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/infoItems.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/precios.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/registro.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/reportePreciosUI.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/showDp_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/showGr_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/showIt_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/showLg_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/showSg_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/showVa_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/mantenimientoItems/vae.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/modulo/form_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/parametros/cargarDatos.gsp" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/views/datos/cargarDatos.gsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/parametros/formIva_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/parametros/form_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/parametros/list.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/parametros/show_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/parroquia/form_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/parroquia/list.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/parroquia/show_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/persona/config.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/persona/form_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/persona/list.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/persona/personal.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/persona/show_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/prfl/ajaxPermisoTramite.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/prfl/ajaxPermisos.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/prfl/form_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/prfl/modulos.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/prfl/permisos.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/programacion/form_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/programacion/list.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/programacion/tablaProgramacion.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/provincia/form_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/provincia/show_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/tipoAdquisicion/form_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/tipoAdquisicion/list.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/tipoAdquisicion/tablaAdquisicion.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/tipoLista/form_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/tipoLista/list.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/tipoLista/tablaTipoLista.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/transporte/form_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/transporte/list.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/transporte/tablaTransporte.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/unidad/form_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/unidad/list.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/unidad/tablaUnidad.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/zona/form_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/zona/list.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/zona/show_ajax.gsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/views/zona/tablaZona.gsp" beforeDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/grails-app/controllers/visor/DatosController.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="74">
+              <caret line="133" column="23" lean-forward="true" selection-start-line="133" selection-start-column="23" selection-end-line="133" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/conf/application.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="313">
+              <caret line="121" column="20" selection-start-line="121" selection-start-column="20" selection-end-line="121" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/datos/cargarDatos.gsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2835">
+              <caret line="189" column="11" selection-start-line="189" selection-start-column="11" selection-end-line="189" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>alerta</find>
+      <find>compra</find>
+      <find>Geo</find>
+      <find>bit</find>
+      <find>para</find>
+      <find>Bitácor</find>
+      <find>Bitácora</find>
+      <find>calcular</find>
+      <find>Date().parse</find>
+      <find>datos</find>
+      <find>controller: 'parametros'</find>
+      <find>Date().parse(</find>
+      <find>2018</find>
+      <find>compras</find>
+      <find>compras.png</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>controller: 'datos'</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$</dir>
+      <dir>$PROJECT_DIR$/grails-app/views</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/grails-app/conf/application.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/domain/seguridad/Persona.groovy" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/seguridad/PersonaController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/domain/seguridad/Alerta.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/domain/seguridad/ParametrosAux.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/taglib/ElementosTagLib.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/taglib/MenuTagLib.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/taglib/UtilitariosTagLib.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/visor/UrlMappings.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/seguridad/WardInterceptor.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/seguridad/LoginController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/seguridad/InicioController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/layouts/main.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/layouts/login.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/services/apli/DbConnectionService.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/utilitarios/ParametrosController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/datos/cargarDatos.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/login/login.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/inicio/index.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/conf/application.yml" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/visor/DatosController.groovy" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="3" />
+    <option name="width" value="1275" />
+    <option name="height" value="1040" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="visor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="visor" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="visor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="visor" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="grails-app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="visor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="visor" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="grails-app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="visor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="visor" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="grails-app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="visor" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="visor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="visor" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="grails-app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="visor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="visor" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="grails-app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+              <item name="apli" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="visor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="visor" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="grails-app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="visor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="visor" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Grails">
+        <subPane>
+          <expand>
+            <path>
+              <item name="" type="f1a0d8d8:GrailsRootNode" />
+              <item name="" type="3c7b8529:GrailsApplicationNode" />
+            </path>
+            <path>
+              <item name="" type="f1a0d8d8:GrailsRootNode" />
+              <item name="" type="3c7b8529:GrailsApplicationNode" />
+              <item name="Controllers" type="75e8b6a9:GrailsArtefactHandlerNode" />
+            </path>
+            <path>
+              <item name="" type="f1a0d8d8:GrailsRootNode" />
+              <item name="" type="3c7b8529:GrailsApplicationNode" />
+              <item name="conf" type="a8c2cad5:GrailsPsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="grails.last.selected.app.url" value="file://$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/grails-app/assets/images/apli" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="visor" />
+      <recent name="seguridad" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/grails-app/assets/images/apli" />
+      <recent name="$PROJECT_DIR$/grails-app/views/datos" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Grails: visor" type="GrailsRunConfigurationType" factoryName="Grails">
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="passParentEnv" value="true" />
+      <setting name="grailsApplicationRoot" value="$PROJECT_DIR$" />
+      <setting name="launchBrowser" value="true" />
+      <setting name="launchBrowserUrl" value="" />
+      <setting name="depsClasspath" value="false" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5d72aed6-4125-4e29-9db5-f3a0ce9c10ad" name="Default Changelist" comment="" />
+      <created>1576270983074</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1576270983074</updated>
+      <workItem from="1576270986489" duration="2618000" />
+      <workItem from="1576334627847" duration="7303000" />
+      <workItem from="1576425598010" duration="2566000" />
+      <workItem from="1576511036789" duration="8983000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="21470000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="3" y="0" width="1275" height="1040" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24939074" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.32936078" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.32936078" />
+      <window_info anchor="bottom" id="Spring" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="IDEtalk Messages" order="12" />
+      <window_info anchor="bottom" id="Grails Console" order="13" weight="0.32936078" />
+      <window_info anchor="bottom" id="Java Enterprise" order="14" />
+      <window_info anchor="bottom" id="Database Changes" order="15" />
+      <window_info anchor="bottom" id="Version Control" order="16" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Gradle" order="6" />
+      <window_info anchor="right" id="IDEtalk" order="7" />
+      <window_info anchor="right" id="Database" order="8" />
+      <window_info anchor="right" id="Palette&#9;" order="9" />
+      <window_info anchor="right" id="Theme Preview" order="10" />
+      <window_info anchor="right" id="Bean Validation" order="11" />
+    </layout>
+  </component>
+  <component name="TraitInjectorService">
+    <option name="state">
+      <map>
+        <entry key="visor.integrationTest">
+          <value>
+            <StateHolder>
+              <option name="knownFactories">
+                <list>
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-interceptors/3.3.10/9bf58c9b0846d50dedb796a520e56672d71f71bb/grails-plugin-interceptors-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-services/3.3.10/4c5fca35a33976926dc44d571fe958ea72c0441a/grails-plugin-services-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-core/3.3.10/9751d54dba666da3f049c70c36b396c0f49a98bd/grails-core-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-domain-class/3.3.10/d97a185a9559f65949530fa60662785cf506bdd1/grails-plugin-domain-class-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-taglib/3.3.2/ac756b51210375b92014a4a206a0443e93474491/grails-web-taglib-3.3.2.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-datastore-gorm-support/6.1.12.RELEASE/ce853a725ff8358616f5ba3379e9e130a56e4833/grails-datastore-gorm-support-6.1.12.RELEASE.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-url-mappings/3.3.10/679873153c6b80af78c3fa3bb47c9d6b9a8b237e/grails-web-url-mappings-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-controllers/3.3.10/e41121327c3d7f891c333038d3f838c81f500516/grails-plugin-controllers-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-url-mappings/3.3.10/679873153c6b80af78c3fa3bb47c9d6b9a8b237e/grails-web-url-mappings-3.3.10.jar!/META-INF/services/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-taglib/3.3.2/75056cd2647d469cb2bc36dd7dbb7e708fe8583/grails-taglib-3.3.2.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web/3.3.10/5effd8e9c2f085706de8365acb3ebe8a1a281be6/grails-web-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-validation/3.3.10/1132f3d75b25d7eb46ed1adcb5b5d3faefa3ca55/grails-validation-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails.plugins/converters/3.3.1/afc1ea5fa7d7d52e83017856fa5a651d38145048/converters-3.3.1.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-codecs/3.3.10/174f7a8e9c3b0dd6c32770f670a3c47c86885a75/grails-plugin-codecs-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-common/3.3.10/c8493b51eff6192c2384956d9774f1276387f0c9/grails-web-common-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails.plugins/gsp/3.3.2/f1e032675f2233c0b18f4de8e74d830197d11ac5/gsp-3.3.2.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-databinding/3.3.10/58474da24745157bf3c37f1ca09989504bdd446b/grails-web-databinding-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails.plugins/hibernate5/6.1.12/3a6cab2f373067ea3112d8a1489fb8d139669389/hibernate5-6.1.12.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-rest/3.3.10/5613e719581cdfab40c83fd1781cedb926ec7345/grails-plugin-rest-3.3.10.jar!/META-INF/grails.factories" />
+                </list>
+              </option>
+              <option name="traits">
+                <SerializableStringMultiMap>
+                  <option name="underlyingMap">
+                    <map>
+                      <entry key="Controller">
+                        <value>
+                          <list>
+                            <option value="grails.artefact.Controller" />
+                            <option value="grails.artefact.gsp.TagLibraryInvoker" />
+                            <option value="grails.artefact.controller.RestResponder" />
+                            <option value="org.grails.compiler.web.converters.RenderConverterTrait" />
+                          </list>
+                        </value>
+                      </entry>
+                      <entry key="Domain">
+                        <value>
+                          <list>
+                            <option value="grails.web.databinding.WebDataBinding" />
+                            <option value="grails.artefact.DomainClass" />
+                            <option value="grails.gorm.Entity" />
+                          </list>
+                        </value>
+                      </entry>
+                      <entry key="Interceptor">
+                        <value>
+                          <list>
+                            <option value="grails.artefact.Interceptor" />
+                            <option value="org.grails.compiler.web.converters.RenderConverterTrait" />
+                          </list>
+                        </value>
+                      </entry>
+                      <entry key="TagLib">
+                        <value>
+                          <list>
+                            <option value="grails.artefact.TagLibrary" />
+                          </list>
+                        </value>
+                      </entry>
+                      <entry key="TagLibrary">
+                        <value>
+                          <list>
+                            <option value="grails.artefact.TagLibrary" />
+                          </list>
+                        </value>
+                      </entry>
+                    </map>
+                  </option>
+                </SerializableStringMultiMap>
+              </option>
+            </StateHolder>
+          </value>
+        </entry>
+        <entry key="visor.main">
+          <value>
+            <StateHolder>
+              <option name="knownFactories">
+                <list>
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-interceptors/3.3.10/9bf58c9b0846d50dedb796a520e56672d71f71bb/grails-plugin-interceptors-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-services/3.3.10/4c5fca35a33976926dc44d571fe958ea72c0441a/grails-plugin-services-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-core/3.3.10/9751d54dba666da3f049c70c36b396c0f49a98bd/grails-core-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-domain-class/3.3.10/d97a185a9559f65949530fa60662785cf506bdd1/grails-plugin-domain-class-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-taglib/3.3.2/ac756b51210375b92014a4a206a0443e93474491/grails-web-taglib-3.3.2.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-datastore-gorm-support/6.1.12.RELEASE/ce853a725ff8358616f5ba3379e9e130a56e4833/grails-datastore-gorm-support-6.1.12.RELEASE.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-url-mappings/3.3.10/679873153c6b80af78c3fa3bb47c9d6b9a8b237e/grails-web-url-mappings-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-controllers/3.3.10/e41121327c3d7f891c333038d3f838c81f500516/grails-plugin-controllers-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-url-mappings/3.3.10/679873153c6b80af78c3fa3bb47c9d6b9a8b237e/grails-web-url-mappings-3.3.10.jar!/META-INF/services/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-taglib/3.3.2/75056cd2647d469cb2bc36dd7dbb7e708fe8583/grails-taglib-3.3.2.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web/3.3.10/5effd8e9c2f085706de8365acb3ebe8a1a281be6/grails-web-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-validation/3.3.10/1132f3d75b25d7eb46ed1adcb5b5d3faefa3ca55/grails-validation-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails.plugins/converters/3.3.1/afc1ea5fa7d7d52e83017856fa5a651d38145048/converters-3.3.1.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-codecs/3.3.10/174f7a8e9c3b0dd6c32770f670a3c47c86885a75/grails-plugin-codecs-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-common/3.3.10/c8493b51eff6192c2384956d9774f1276387f0c9/grails-web-common-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails.plugins/gsp/3.3.2/f1e032675f2233c0b18f4de8e74d830197d11ac5/gsp-3.3.2.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-databinding/3.3.10/58474da24745157bf3c37f1ca09989504bdd446b/grails-web-databinding-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails.plugins/hibernate5/6.1.12/3a6cab2f373067ea3112d8a1489fb8d139669389/hibernate5-6.1.12.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-rest/3.3.10/5613e719581cdfab40c83fd1781cedb926ec7345/grails-plugin-rest-3.3.10.jar!/META-INF/grails.factories" />
+                </list>
+              </option>
+              <option name="traits">
+                <SerializableStringMultiMap>
+                  <option name="underlyingMap">
+                    <map>
+                      <entry key="Controller">
+                        <value>
+                          <list>
+                            <option value="grails.artefact.Controller" />
+                            <option value="grails.artefact.gsp.TagLibraryInvoker" />
+                            <option value="grails.artefact.controller.RestResponder" />
+                            <option value="org.grails.compiler.web.converters.RenderConverterTrait" />
+                          </list>
+                        </value>
+                      </entry>
+                      <entry key="Domain">
+                        <value>
+                          <list>
+                            <option value="grails.artefact.DomainClass" />
+                            <option value="grails.web.databinding.WebDataBinding" />
+                            <option value="grails.gorm.Entity" />
+                          </list>
+                        </value>
+                      </entry>
+                      <entry key="Interceptor">
+                        <value>
+                          <list>
+                            <option value="grails.artefact.Interceptor" />
+                            <option value="org.grails.compiler.web.converters.RenderConverterTrait" />
+                          </list>
+                        </value>
+                      </entry>
+                      <entry key="TagLib">
+                        <value>
+                          <list>
+                            <option value="grails.artefact.TagLibrary" />
+                          </list>
+                        </value>
+                      </entry>
+                      <entry key="TagLibrary">
+                        <value>
+                          <list>
+                            <option value="grails.artefact.TagLibrary" />
+                          </list>
+                        </value>
+                      </entry>
+                    </map>
+                  </option>
+                </SerializableStringMultiMap>
+              </option>
+            </StateHolder>
+          </value>
+        </entry>
+        <entry key="visor.test">
+          <value>
+            <StateHolder>
+              <option name="knownFactories">
+                <list>
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-interceptors/3.3.10/9bf58c9b0846d50dedb796a520e56672d71f71bb/grails-plugin-interceptors-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-services/3.3.10/4c5fca35a33976926dc44d571fe958ea72c0441a/grails-plugin-services-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-core/3.3.10/9751d54dba666da3f049c70c36b396c0f49a98bd/grails-core-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-domain-class/3.3.10/d97a185a9559f65949530fa60662785cf506bdd1/grails-plugin-domain-class-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-taglib/3.3.2/ac756b51210375b92014a4a206a0443e93474491/grails-web-taglib-3.3.2.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-datastore-gorm-support/6.1.12.RELEASE/ce853a725ff8358616f5ba3379e9e130a56e4833/grails-datastore-gorm-support-6.1.12.RELEASE.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-url-mappings/3.3.10/679873153c6b80af78c3fa3bb47c9d6b9a8b237e/grails-web-url-mappings-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-controllers/3.3.10/e41121327c3d7f891c333038d3f838c81f500516/grails-plugin-controllers-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-url-mappings/3.3.10/679873153c6b80af78c3fa3bb47c9d6b9a8b237e/grails-web-url-mappings-3.3.10.jar!/META-INF/services/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-taglib/3.3.2/75056cd2647d469cb2bc36dd7dbb7e708fe8583/grails-taglib-3.3.2.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web/3.3.10/5effd8e9c2f085706de8365acb3ebe8a1a281be6/grails-web-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-validation/3.3.10/1132f3d75b25d7eb46ed1adcb5b5d3faefa3ca55/grails-validation-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails.plugins/converters/3.3.1/afc1ea5fa7d7d52e83017856fa5a651d38145048/converters-3.3.1.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-codecs/3.3.10/174f7a8e9c3b0dd6c32770f670a3c47c86885a75/grails-plugin-codecs-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-common/3.3.10/c8493b51eff6192c2384956d9774f1276387f0c9/grails-web-common-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails.plugins/gsp/3.3.2/f1e032675f2233c0b18f4de8e74d830197d11ac5/gsp-3.3.2.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-databinding/3.3.10/58474da24745157bf3c37f1ca09989504bdd446b/grails-web-databinding-3.3.10.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails.plugins/hibernate5/6.1.12/3a6cab2f373067ea3112d8a1489fb8d139669389/hibernate5-6.1.12.jar!/META-INF/grails.factories" />
+                  <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-plugin-rest/3.3.10/5613e719581cdfab40c83fd1781cedb926ec7345/grails-plugin-rest-3.3.10.jar!/META-INF/grails.factories" />
+                </list>
+              </option>
+              <option name="traits">
+                <SerializableStringMultiMap>
+                  <option name="underlyingMap">
+                    <map>
+                      <entry key="Controller">
+                        <value>
+                          <list>
+                            <option value="grails.artefact.Controller" />
+                            <option value="grails.artefact.gsp.TagLibraryInvoker" />
+                            <option value="grails.artefact.controller.RestResponder" />
+                            <option value="org.grails.compiler.web.converters.RenderConverterTrait" />
+                          </list>
+                        </value>
+                      </entry>
+                      <entry key="Domain">
+                        <value>
+                          <list>
+                            <option value="grails.web.databinding.WebDataBinding" />
+                            <option value="grails.artefact.DomainClass" />
+                            <option value="grails.gorm.Entity" />
+                          </list>
+                        </value>
+                      </entry>
+                      <entry key="Interceptor">
+                        <value>
+                          <list>
+                            <option value="grails.artefact.Interceptor" />
+                            <option value="org.grails.compiler.web.converters.RenderConverterTrait" />
+                          </list>
+                        </value>
+                      </entry>
+                      <entry key="TagLib">
+                        <value>
+                          <list>
+                            <option value="grails.artefact.TagLibrary" />
+                          </list>
+                        </value>
+                      </entry>
+                      <entry key="TagLibrary">
+                        <value>
+                          <list>
+                            <option value="grails.artefact.TagLibrary" />
+                          </list>
+                        </value>
+                      </entry>
+                    </map>
+                  </option>
+                </SerializableStringMultiMap>
+              </option>
+            </StateHolder>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/grails-app/conf/application.groovy" />
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/seguridad/Persona.groovy" />
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/compras/AdministracionController.groovy" />
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/seguridad/PersonaController.groovy" />
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/seguridad/Alerta.groovy" />
+    <entry file="file://$PROJECT_DIR$/grails-app/services/compras/ZonaService.groovy" />
+    <entry file="file://$PROJECT_DIR$/grails-app/services/compras/PreciosService.groovy" />
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/seguridad/ParametrosAux.groovy" />
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/seguridad/AccionesController.groovy" />
+    <entry file="file://$PROJECT_DIR$/grails-app/taglib/MenuTagLib.groovy" />
+    <entry file="file://$PROJECT_DIR$/grails-app/taglib/UtilitariosTagLib.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="930">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/visor/UrlMappings.groovy">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="29" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/seguridad/WardInterceptor.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/seguridad/LoginController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/assets/stylesheets/apli/CustomSvt.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-gsp-taglib/3.3.2/34cad59853e3a856069b2145a3ded24ac8286f07/grails-web-gsp-taglib-3.3.2-sources.jar!/org/grails/plugins/web/taglib/RenderTagLib.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="346" column="12" selection-start-line="346" selection-start-column="12" selection-end-line="346" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/layouts/main.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="57" column="7" lean-forward="true" selection-start-line="57" selection-start-column="7" selection-end-line="57" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/i18n/messages.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
+        </state>
+      </provider>
+      <provider editor-type-id="ResourceBundle" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/taglib/ElementosTagLib.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#71#123#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/seguridad/InicioController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="9" lean-forward="true" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/utilitarios/ParametrosController.groovy" />
+    <entry file="file://$PROJECT_DIR$/grails-app/assets/images/apli/conocimiento.png" />
+    <entry file="file://$PROJECT_DIR$/grails-app/assets/images/apli/agenda.png" />
+    <entry file="file://$PROJECT_DIR$/grails-app/assets/images/apli/logo.png" />
+    <entry file="file://$PROJECT_DIR$/grails-app/views/canton/form_ajax.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="585">
+          <caret line="39" column="70" selection-start-line="39" selection-start-column="70" selection-end-line="39" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/login/login.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="795">
+          <caret line="53" column="35" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/datos/cargarDatos.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2835">
+          <caret line="189" column="11" selection-start-line="189" selection-start-column="11" selection-end-line="189" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/assets/images/skin/favicon.ico">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/assets/images/favicon.ico">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/layouts/login.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="478">
+          <caret line="50" selection-start-line="50" selection-end-line="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/login/perfiles.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/inicio/index.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="83" column="13" selection-start-line="83" selection-start-column="13" selection-end-line="83" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/services/apli/DbConnectionService.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="509">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/conf/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="121" column="20" selection-start-line="121" selection-start-column="20" selection-end-line="121" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/visor/DatosController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="74">
+          <caret line="133" column="23" lean-forward="true" selection-start-line="133" selection-start-column="23" selection-end-line="133" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
