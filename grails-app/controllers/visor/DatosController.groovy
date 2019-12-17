@@ -471,7 +471,7 @@ class DatosController {
 //                                print "*** ${prcs} mg--> ${mg.id}, estc: ${es.id} '${fcha.format('yyyy-MM-dd')}' a '${fchaFin.format('yyyy-MM-dd')}'"
                                 sql = "select * from survey.promedios(${mg.id}, ${es.id}, '${prcs}', " +
                                         "'${frmtFcha.format(fcha)}', '${frmtFcha.format(fchaFin)}')"
-                                println "sql--> $sql"
+//                                println "sql--> $sql"
                                 cn.eachRow(sql.toString()) { dt ->
                                     salida = dt.promedios
                                 }
