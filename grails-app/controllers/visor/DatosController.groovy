@@ -1,5 +1,7 @@
 package visor
 
+import org.omg.CORBA.Environment
+
 import java.text.SimpleDateFormat
 
 class DatosController {
@@ -137,9 +139,13 @@ class DatosController {
         def fcha
         def magn
         def sqlp
+        def directorio
 
-//        def directorio = '/home/guido/proyectos/visor/dataIUV/'
-        def directorio = '/home/data/dataIUV/'
+        if(grails.util.Environment.getCurrent().name == 'development') {
+            directorio = '/home/guido/proyectos/visor/dataIUV/2018'
+        } else {
+            directorio = '/home/data/dataIUV/'
+        }
 
 //        procesa = 10
 //        crea_log = false
@@ -170,13 +176,17 @@ class DatosController {
                         if (cuenta < procesa) {
 //                        println "${line}"
 
-//                            line = line.replace(",", ".")
+                            if(line.toString() =~ /\d.[a-z]./) {
+                                line = line.replace(",", ".")
+                            }
+
                             rgst = line.split(';')
                             rgst = rgst*.trim()
 
-//                        println "***** $rgst, --> ${rgst[0].toString().toLowerCase()}"
+//                        println "***** $rgst, --> ${rgst}"
 
-                            if (cuenta == 0) {
+                            if (cuenta < 2 && (rgst[1].toString().contains('Ed'))) {
+                                rgst = rgst*.replaceAll(('EdPAR'), ('PAR'))
                                 mg = rgst[1..-1]
                                 magn = buscaMagnIUV(mg)
 //                                println ">>>> ${nmbr} --> ${arch} --> ${mg} --> magn: $magn"
@@ -185,7 +195,7 @@ class DatosController {
 //                            println "\n cuenta: $cuenta, fecha: ${rgst[0]}"
 //                                fcha = new Date().parse('yyyy-MM-dd HH:mm:ss', rgst[0])
                                 if(rgst[0].toString() =~ /\d.[a-z]./) {
-                                    fcha = new SimpleDateFormat("yyyy-MMM-dd HH:mm").parse(rgst[0])
+                                    fcha = new SimpleDateFormat("dd-MMM-yyyy HH:mm").parse(rgst[0])
                                 } else {
                                     fcha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rgst[0])
                                 }
@@ -291,8 +301,9 @@ class DatosController {
 //                println "sql: $sql"
 
                 try {
-//                    println "inserta: $inserta"
                     cn.execute(sql.toString())
+//                    println "inserta: $sql"
+//                    println ">> ${cn.updateCount}"
                     if (cn.updateCount > 0) {
                         insertados++
                     }
