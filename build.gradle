@@ -63,6 +63,7 @@ dependencies {
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
     testRuntime "org.seleniumhq.selenium:selenium-c" +
             "hrome-driver:2.47.1"
+    compile "org.grails.plugins:quartz:1.0.2"
 }
 
 bootRun {

@@ -55,11 +55,6 @@
         </g:link>
     </div>
     <div class="btn-group">
-        <a href="#" class="btn col-md-12 btn-success" id="cargarDatos"><i class="fa fa-file-excel"></i>
-            Cargar datos
-        </a>
-    </div>
-    <div class="btn-group">
         <a href="#" class="btn col-md-12 btn-success" id="datosMinutos"><i class="fa fa-file-excel"></i>
             Cargar datos Minutos
         </a>
@@ -84,9 +79,15 @@
             Cargar IUV
         </a>
     </div>
+    <div class="btn-group">
+        <a href="#" class="btn col-md-12 btn-success" id="mueveArch"><i class="fa fa-file"></i>
+            Cargar archivos
+        </a>
+    </div>
 </div>
 
 <div class="col-md-12" style="margin-top: 10px">
+%{--
     <g:uploadForm action="leeCSV" method="post" name="frmaArchivo">
         <div class="panel panel-primary">
             <div class="panel-heading">Seleccionar el archivo a cargar</div>
@@ -121,19 +122,12 @@
             </div>
         </div>
     </g:uploadForm>
+--}%
 </div>
 
 
 <script type="text/javascript">
-    $("#cargarDatos").click(function () {
-        if($("#archivo").val()!=""){
-            var dialog = cargarLoader("Cargando...");
-            $("#frmaArchivo").submit();
-        }else{
-            bootbox.alert("No ha ingresado ningún archivo para ser cargado")
-        }
-    });
-
+/*
     $("#datosMinutos").click(function () {
         if($("#archivo").val()!=""){
             var dialog = cargarLoader("Cargando...");
@@ -143,7 +137,45 @@
             bootbox.alert("No ha ingresado ningún archivo para ser cargado")
         }
     });
+*/
 
+    $("#datosMinutos").click(function () {
+        var dialog = cargarLoader("Cargando datos minutos...");
+        $.ajax({
+            type: 'POST',
+            url:'${createLink(controller: 'datos', action: 'leeCSV')}',
+            data:{
+                tipo: 'prod'
+            },
+            success: function (msg) {
+                if(msg == 'ok'){
+                    location.reload()
+                }else{
+                    log("Error al cargar datos de minutos","error")
+                }
+            }
+        });
+    });
+
+    $("#prueba").click(function () {
+        var dialog = cargarLoader("Cargando datos minutos...");
+        $.ajax({
+            type: 'POST',
+            url:'${createLink(controller: 'datos', action: 'leeCSV')}',
+            data:{
+                tipo: 'prueba'
+            },
+            success: function (msg) {
+                if(msg == 'ok'){
+                    location.reload()
+                }else{
+                    log("Error al cargar datos de minutos","error")
+                }
+            }
+        });
+    });
+
+/*
     $("#prueba").click(function () {
         if($("#archivo").val()!=""){
             var dialog = cargarLoader("Cargando...");
@@ -153,6 +185,7 @@
             bootbox.alert("No ha ingresado ningún archivo para ser cargado")
         }
     });
+*/
 
     $("#calcular").click(function () {
         var dialog = cargarLoader("Procesando datos de 10m. 1h, 8h, 24h y 72h...");
@@ -166,7 +199,7 @@
                 if(msg == 'ok'){
                     location.reload()
                 }else{
-                    log("Error al guardar el Iva","error")
+                    log("Error al calcular..","error")
                 }
             }
         });
@@ -184,7 +217,7 @@
                 if(msg == 'ok'){
                     location.reload()
                 }else{
-                    log("Error al guardar el Iva","error")
+                    log("Error al calcular dirección del viento","error")
                 }
             }
         });
@@ -202,7 +235,25 @@
                 if(msg == 'ok'){
                     location.reload()
                 }else{
-                    log("Error al guardar el Iva","error")
+                    log("Error al cargar datos de IUV","error")
+                }
+            }
+        });
+    });
+
+    $("#mueveArch").click(function () {
+        var dialog = cargarLoader("Gestionando archivos de datos...");
+        $.ajax({
+            type: 'POST',
+            url:'${createLink(controller: 'datos', action: 'mueveArch')}',
+            data:{
+                valor: 'valores'
+            },
+            success: function (msg) {
+                if(msg == 'ok'){
+                    location.reload()
+                }else{
+                    log("Error al gestionar los archivos de datos","error")
                 }
             }
         });

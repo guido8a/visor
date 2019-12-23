@@ -1,8 +1,12 @@
 package visor
 
+import org.apache.tomcat.util.http.fileupload.FileUtils
 import org.omg.CORBA.Environment
 
+import java.nio.file.Paths
+import java.nio.file.StandardCopyOption
 import java.text.SimpleDateFormat
+import java.nio.file.Files
 
 class DatosController {
     def dbConnectionService
@@ -39,19 +43,18 @@ class DatosController {
         def fcha
         def magn
         def sqlp
+        def directorio
 
-
-        def f = request.getFile('file')  //archivo = name del input type file
-        def archivo = f.getOriginalFilename()
-//        def directorio = '/home/guido/proyectos/visor/data/'
-        def directorio = '/home/guido/proyectos/visor/datos/'
-        if (tipo == 'Prueba') {  //botón: Prueba Minutos
+        if(grails.util.Environment.getCurrent().name == 'development') {
             directorio = '/home/guido/proyectos/visor/data/'
-            procesa = 5
+        } else {
+            directorio = '/home/data/data/'
         }
 
-        if (tipo == 'Minuto') { //botón: Cargar datos Minutos
-            directorio = '/home/guido/proyectos/visor/data/'
+        if (tipo == 'prueba') { //botón: Cargar datos Minutos
+            procesa = 5
+            crea_log = false
+        } else {
             procesa = 100000000000
             crea_log = true
         }
@@ -103,7 +106,8 @@ class DatosController {
                                 cont += inserta.insertados
                                 repetidos += inserta.repetidos
                             }
-                            cuenta++
+
+                            if(rgst.size() > 5 && rgst[-3] != 0) cuenta++  /* se cuentan sólo si hay valores */
 
                         }
                     }
@@ -121,7 +125,8 @@ class DatosController {
         }
 
         flash.message = "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos"
-        redirect(action: 'cargarDatos')
+        render "ok"
+//        redirect(action: 'cargarDatos')
     }
 
 
@@ -147,10 +152,10 @@ class DatosController {
             directorio = '/home/data/dataIUV/'
         }
 
-//        procesa = 10
-//        crea_log = false
-        procesa = 100000000
-        crea_log = true
+        procesa = 3
+        crea_log = false
+//        procesa = 100000000
+//        crea_log = true
 
         def nmbr = ""
         def arch = ""
@@ -207,7 +212,8 @@ class DatosController {
                                 cont += inserta.insertados
                                 repetidos += inserta.repetidos
                             }
-                            cuenta++
+
+                            if(rgst.size() > 5 && rgst[-3] != 0) cuenta++  /* se cuentan sólo si hay valores */
 
                         }
                     }
@@ -389,7 +395,7 @@ class DatosController {
     def buscaMagn(ar) {
         def cn = dbConnectionService.getConnection()
         def sql = "select id from survey.magnitude where abbreviation ilike '${ar}' limit 1"
-        println "sql: $sql"
+//        println "sql: $sql"
         return cn.rows(sql.toString())[0]?.id
     }
 
@@ -597,6 +603,83 @@ class DatosController {
                 "'${frmtFcha.format(new Date())}', '${salida}')"
 //        println "...---> $sql"
         cn.execute(sql.toString())
+    }
+
+    /**
+     * Mueve archivos desde un repositorio común a las carpetas de data para cargarlos a la BD
+     * */
+    def mueveArch() {
+        println ">>mueveArch.. *${params}*"
+        def contador = 0
+        def cn = dbConnectionService.getConnection()
+        def vrbl = params.magnitud
+        def rgst = []
+        def cont = 0
+        def repetidos = 0
+        def procesa = 5
+        def crea_log = false
+        def inserta
+        def fcha
+        def magn
+        def sqlp
+        def dir_iuv, dir_data, dir_arch, dir_dataN, dir_iuvN
+
+        if(grails.util.Environment.getCurrent().name == 'development') {
+            dir_data = '/home/guido/proyectos/visor/data/'
+            dir_dataN = '/home/guido/proyectos/visor/data1/'
+            dir_iuv = '/home/guido/proyectos/visor/dataIUV/'
+            dir_iuvN = '/home/guido/proyectos/visor/dataIUV1/'
+            dir_arch = '/home/guido/proyectos/visor/remaq/'
+        } else {
+            dir_data = '/home/data/data/'
+            dir_iuv = '/home/data/dataIUV/'
+            dir_arch = '/home/data/remaq/'
+        }
+
+        procesa = 3
+        crea_log = false
+//        procesa = 100000000
+//        crea_log = true
+
+        def nmbr = ""
+        def arch = ""
+        def mg = ""
+        new File(dir_arch).traverse(type: groovy.io.FileType.FILES, nameFilter: ~/.*\.csv/) { ar ->
+            nmbr = ar.toString() - dir_arch
+            arch = nmbr.substring(nmbr.lastIndexOf("/") + 1)
+
+            sqlp = "select count(*) cnta from survey.file where name ilike '${arch}'"
+//            println "... $sqlp"
+            def procesado = cn.rows(sqlp.toString())[0].cnta
+
+            if(!procesado) {
+                File original = new File(ar.toString())
+                File destino
+                if(ar.toString().toLowerCase().contains('radi')) {
+                    destino  = new File(dir_iuvN + nmbr)
+                } else {
+                    destino  = new File(dir_dataN + nmbr)
+                }
+                cont++
+                println "------------ copiando archivo: ${ar.toString()}, a: ${destino} --> ${cont}"
+                if (original.exists()) {
+                    println "---> ${destino.getParent()}"
+                    File dire = new File(destino.getParent())
+                    File subd = new File(dire.getParent())
+                    subd.mkdir()
+                    dire.mkdir()
+                    Files.copy(Paths.get(original.getAbsolutePath()), Paths.get(destino.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING)
+                } else {
+                    println "El fichero ${original} no existe"
+                }
+            } else {
+                println "++ ya existe ${arch}"
+            }
+//            println "---> archivo: ${ar.toString()}  --> procesado: ${procesado}"
+
+        }
+        flash.message = "Se han cargado ${cont} líneas de datos y han existido: <<${repetidos}>> repetidos"
+        render "ok"
     }
 
 
