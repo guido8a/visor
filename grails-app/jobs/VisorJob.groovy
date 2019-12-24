@@ -9,7 +9,7 @@ class VisorJob {
     def lecturasService
 
     static triggers = {
-        simple startDelay: 1000*60*1, repeatInterval: 1000*60*1000  /* cada 10 minutos */
+        simple startDelay: 1000*60*1, repeatInterval: 1000*60*60*4  /* cada 10 minutos */
 //        simple startDelay: 1000*10, repeatInterval: 1000*60*10  /* cada 10 minutos */
     }
 
