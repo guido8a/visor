@@ -607,28 +607,18 @@ class DatosController {
 
     /**
      * Mueve archivos desde un repositorio común a las carpetas de data para cargarlos a la BD
+     * los archivos nuevos se deben poner en /home/data/remarq y de ahí se distribuyen a
+     * --> /home/data/data o /home/data/dataIUV si son nuevos
      * */
     def mueveArch() {
         println ">>mueveArch.. *${params}*"
-        def contador = 0
         def cn = dbConnectionService.getConnection()
-        def vrbl = params.magnitud
-        def rgst = []
-        def cont = 0
-        def repetidos = 0
-        def procesa = 5
-        def crea_log = false
-        def inserta
-        def fcha
-        def magn
-        def sqlp
+        def cn_data, cn_iuv
         def dir_iuv, dir_data, dir_arch, dir_dataN, dir_iuvN
 
         if(grails.util.Environment.getCurrent().name == 'development') {
             dir_data = '/home/guido/proyectos/visor/data/'
-            dir_dataN = '/home/guido/proyectos/visor/data1/'
             dir_iuv = '/home/guido/proyectos/visor/dataIUV/'
-            dir_iuvN = '/home/guido/proyectos/visor/dataIUV1/'
             dir_arch = '/home/guido/proyectos/visor/remaq/'
         } else {
             dir_data = '/home/data/data/'
@@ -636,14 +626,11 @@ class DatosController {
             dir_arch = '/home/data/remaq/'
         }
 
-        procesa = 3
-        crea_log = false
-//        procesa = 100000000
-//        crea_log = true
+        cn_data = 0
+        cn_iuv = 0
 
-        def nmbr = ""
-        def arch = ""
-        def mg = ""
+        def nmbr = "", arch = "", sqlp = ""
+
         new File(dir_arch).traverse(type: groovy.io.FileType.FILES, nameFilter: ~/.*\.csv/) { ar ->
             nmbr = ar.toString() - dir_arch
             arch = nmbr.substring(nmbr.lastIndexOf("/") + 1)
@@ -656,12 +643,15 @@ class DatosController {
                 File original = new File(ar.toString())
                 File destino
                 if(ar.toString().toLowerCase().contains('radi')) {
-                    destino  = new File(dir_iuvN + nmbr)
+                    def tx = nmbr.substring(nmbr.indexOf('/') + 1, nmbr.size())
+//                    println "nmbr: ${nmbr} --> $tx"
+                    destino  = new File(dir_iuv + tx)
+                    cn_iuv++
                 } else {
-                    destino  = new File(dir_dataN + nmbr)
+                    destino  = new File(dir_data + nmbr)
+                    cn_data++
                 }
-                cont++
-                println "------------ copiando archivo: ${ar.toString()}, a: ${destino} --> ${cont}"
+                println "------------ copiando archivo: ${ar.toString()}, a: ${destino} --> ${cn_iuv + cn_data}"
                 if (original.exists()) {
                     println "---> ${destino.getParent()}"
                     File dire = new File(destino.getParent())
@@ -678,7 +668,7 @@ class DatosController {
 //            println "---> archivo: ${ar.toString()}  --> procesado: ${procesado}"
 
         }
-        flash.message = "Se han cargado ${cont} líneas de datos y han existido: <<${repetidos}>> repetidos"
+        flash.message = "Se han movido ${cn_data} archivos a ${dir_data} y ${cn_iuv} a: ${dir_iuv}"
         render "ok"
     }
 
