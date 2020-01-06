@@ -27,12 +27,12 @@ class VisorJob {
         def cont = 1
         println "Ejecuta procesos automáticos: ${new Date()}"
         lecturasService.mueveArch()
-        lecturasService.leeCSV('prueba')
-        lecturasService.cargaIUV('prueba')
-//        lecturasService.leeCSV('prod')
-//        lecturasService.cargaIUV('prod')
-//        lecturasService.calcular()
-//        lecturasService.calcularDir()
+//        lecturasService.leeCSV('prueba')
+//        lecturasService.cargaIUV('prueba')
+        lecturasService.leeCSV('prod')
+        lecturasService.cargaIUV('prod')
+        lecturasService.calcular()
+        lecturasService.calcularDir()
 
         println "Fin procesos automáticos: ${new Date()}"
     }
