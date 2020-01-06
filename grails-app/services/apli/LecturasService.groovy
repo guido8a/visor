@@ -54,7 +54,7 @@ class LecturasService {
             if(!procesado) {
                 File original = new File(ar.toString())
                 File destino
-                if(ar.toString().toLowerCase().contains('radi')) {
+                if(ar.toString().toLowerCase().contains('iuv') || ar.toString().toLowerCase().contains('sol_')) {
                     def tx = nmbr.substring(nmbr.indexOf('/') + 1, nmbr.size())
 //                    println "nmbr: ${nmbr} --> $tx"
                     destino  = new File(dir_iuv + tx)
@@ -152,6 +152,7 @@ class LecturasService {
 
                             if (cuenta == 0) {
                                 estc = datosEstaciones(rgst)
+                                if(estc && cuenta == 0) cuenta = 1
 //                            println "estaciones: $estc"
                             } else if (rgst[0] && rgst[0] != 'Date') {
 //                            println "\n cuenta: $cuenta, fecha: ${rgst[0]}"
@@ -164,7 +165,7 @@ class LecturasService {
                                 repetidos += inserta.repetidos
                             }
 
-                            if(rgst.size() > 5 && rgst[-3] != 0) cuenta++  /* se cuentan sólo si hay valores */
+                            if(rgst.size() > 2 && rgst[-2] != 0) cuenta++  /* se cuentan sólo si hay valores */
 
                         }
                     }
@@ -186,10 +187,11 @@ class LecturasService {
     }
 
 
-    def cargaIUV() {
-        println ">>cargaIUV.."
+    def cargaIUV(tipo) {
+//        println ">>cargaIUV.."
         def contador = 0
         def cn = dbConnectionService.getConnection()
+        def estc
         def rgst = []
         def cont = 0
         def repetidos = 0
@@ -207,10 +209,13 @@ class LecturasService {
             directorio = '/home/data/dataIUV/'
         }
 
-        procesa = 3
-        crea_log = false
-//        procesa = 100000000
-//        crea_log = true
+        if (tipo == 'prueba') { //botón: Cargar datos Minutos
+            procesa = 5
+            crea_log = false
+        } else {
+            procesa = 100000000000
+            crea_log = true
+        }
 
         def nmbr = ""
         def arch = ""
@@ -231,7 +236,7 @@ class LecturasService {
 
                 if (!procesado) {
 //                    println "Cargando datos desde: $arch"
-                    print "Cargando datos desde: $ar "
+                    print "Cargando datos IUV desde: $ar "
                     while ((line = reader.readLine()) != null) {
                         if (cuenta < procesa) {
 //                        println "${line}"
@@ -243,9 +248,14 @@ class LecturasService {
                             rgst = line.split(';')
                             rgst = rgst*.trim()
 
-//                        println "***** $rgst, --> ${rgst}"
+//                        println "***** $rgst, --> ${rgst}   cuenta: $cuenta"
 
-                            if (cuenta < 2 && (rgst[1].toString().contains('Ed'))) {
+                            if (cuenta == 0) {
+                                estc = datosEstaciones(rgst)
+                                if(estc && cuenta == 0) cuenta = 1
+//                                println "estaciones: $estc"
+                            } else if (cuenta < 3 && (rgst[1].toString().contains('Ed') || (rgst[1].toString().contains('IUV')))) {
+//                                println "cuenta: $cuenta, registro: $rgst"
                                 rgst = rgst*.replaceAll(('EdPAR'), ('PAR'))
                                 mg = rgst[1..-1]
                                 magn = buscaMagnIUV(mg)
@@ -263,12 +273,12 @@ class LecturasService {
                                 rgst[0] = fcha
 //                            println "---> Registro: $rgst"
 
-                                inserta = cargarLectIUV(rgst, magn)
+                                inserta = cargarLectIUV(rgst, magn, estc)
                                 cont += inserta.insertados
                                 repetidos += inserta.repetidos
                             }
 
-                            if(rgst.size() > 5 && rgst[-3] != 0) cuenta++  /* se cuentan sólo si hay valores */
+                            if(rgst.size() > 2 && rgst[-3] != 0) cuenta++  /* se cuentan sólo si hay valores */
 
                         }
                     }
@@ -310,8 +320,9 @@ class LecturasService {
 //        if (rgst[0].toString().toLowerCase() == 'fecha') {
         rgst.removeAt(0)
         rgst.each() { rg ->
+//            println "$rgst ilike '${rg}'"
             sql = "select id from survey.opoint where pname ilike '${rg[0..1]}%${rg[-4..-1]}'"
-//                println "sql: $sql"
+//            println "sql: $sql"
             def resp = cn.rows(sql.toString())
 //                println "---> $resp"
             def id = cn.rows(sql.toString())[0]?.id
@@ -568,6 +579,7 @@ class LecturasService {
         def cn = dbConnectionService.getConnection()
         def sql = ""
         def magn = []
+//        println "busca magnitud IUV: ${ar}"
         ar.each { m ->
             sql = "select id from survey.magnitude where abbreviation ilike '${m}' limit 1"
 //            println "sql: $sql"
@@ -578,7 +590,7 @@ class LecturasService {
     }
 
 
-    def cargarLectIUV(rgst, magn) {
+    def cargarLectIUV(rgst, magn, estc) {
         def errores = ""
         def cnta = 0
         def insertados = 0
@@ -587,7 +599,7 @@ class LecturasService {
         def cn = dbConnectionService.getConnection()
         def sql = ""
 
-//        println "\n inicia cargado de datos para mag: $vrbl, .... $rgst"
+//        println "\n inicia cargado de datos para mag: $magn, estc: ${estc}.... $rgst"
         fcha = rgst[0]
         rgst.removeAt(0)  // elimina la fecha y quedan solo lecturas
 
@@ -597,7 +609,7 @@ class LecturasService {
             if (rg.toString().size() > 0) {
 //                println "--> estación: ${estc[cnta]}, valor: $rg"
                 sql = "insert into survey.data (id, magnitude_id, opoint_id, datatype_id, datetime, avg1m) " +
-                        "values(default, ${magn[cnta]}, 4, 1, '${fcha.format('yyyy-MM-dd HH:mm')}', ${rg.toDouble()}) " +
+                        "values(default, ${magn[cnta]}, ${estc[cnta]}, 1, '${fcha.format('yyyy-MM-dd HH:mm')}', ${rg.toDouble()}) " +
                         "on conflict (magnitude_id, opoint_id, datetime, datatype_id) " +
                         "do update set avg1m = ${rg.toDouble()}"
 //                println "sql: $sql"
