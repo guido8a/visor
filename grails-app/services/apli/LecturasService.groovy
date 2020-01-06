@@ -633,6 +633,13 @@ class LecturasService {
         return [errores: errores, insertados: insertados, repetidos: repetidos]
     }
 
+    def archivoSubido(arch, cont, rept) {
+        def cn = dbConnectionService.getConnection()
+        def sql = "insert into survey.file(id, name, loaded, lines, errors) values(default, '${arch}', " +
+                "'${new Date().format('yyyy-MM-dd HH:mm:ss')}', ${cont}, ${rept})"
+//        println "sql: $sql"
+        cn.execute(sql.toString())
+    }
 
 
 
