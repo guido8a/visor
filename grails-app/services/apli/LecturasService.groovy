@@ -148,7 +148,7 @@ class LecturasService {
                             rgst = line.split(';')
                             rgst = rgst*.trim()
 
-                        println "***** $rgst, --> ${rgst[0].toString().toLowerCase()}"
+//                        println "***** $rgst, --> ${rgst[0].toString().toLowerCase()}"
 
                             if (cuenta == 0) {
                                 estc = datosEstaciones(rgst)
@@ -171,7 +171,7 @@ class LecturasService {
                     }
 //                if(true) {
                     if (crea_log) {
-//                    println "--- file: ${arch}"
+                    print " --- file: ${arch} "
                         archivoSubido(arch, cont, repetidos)
                     }
                     println "--> cont: $cont, repetidos: $repetidos"
