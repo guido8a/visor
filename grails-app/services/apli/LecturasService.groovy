@@ -148,7 +148,7 @@ class LecturasService {
                             rgst = line.split(';')
                             rgst = rgst*.trim()
 
-//                        println "***** $rgst, --> ${rgst[0].toString().toLowerCase()}"
+                        println "***** $rgst, --> ${rgst[0].toString().toLowerCase()}"
 
                             if (cuenta == 0) {
                                 estc = datosEstaciones(rgst)
@@ -637,7 +637,7 @@ class LecturasService {
         def cn = dbConnectionService.getConnection()
         def sql = "insert into survey.file(id, name, loaded, lines, errors) values(default, '${arch}', " +
                 "'${new Date().format('yyyy-MM-dd HH:mm:ss')}', ${cont}, ${rept})"
-//        println "sql: $sql"
+        println "sql: $sql"
         cn.execute(sql.toString())
     }
 

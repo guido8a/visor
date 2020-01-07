@@ -109,17 +109,16 @@ dataSource:
     pooled: true
     jmxExport: true
     driverClassName: org.postgresql.Driver
-#    password: 'megan1963@'
 
 environments:
     development:
         dataSource:
             dbCreate: update
-#            url: jdbc:postgresql://127.0.0.1:5432/visorprod
-            url: jdbc:postgresql://50.116.33.232:5432/visorprod
+            url: jdbc:postgresql://127.0.0.1:5432/visorprod
+#            url: jdbc:postgresql://50.116.33.232:5432/visorprod
             username: postgres
-#            password: 'postgres'
-            password: 'megan1963@'
+            password: 'postgres'
+#            password: 'megan1963@'
 
         dataSources:
             visor:
