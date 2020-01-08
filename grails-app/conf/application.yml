@@ -116,8 +116,9 @@ environments:
             dbCreate: update
             url: jdbc:postgresql://127.0.0.1:5432/visorprod
 #            url: jdbc:postgresql://50.116.33.232:5432/visorprod
-            username: postgres
+            username: 'postgres'
             password: 'postgres'
+#            username: aqremmaq
 #            password: 'megan1963@'
 
         dataSources:
@@ -140,15 +141,15 @@ environments:
         dataSource:
             dbCreate: none
             url: jdbc:postgresql://127.0.0.1:5432/visorprod
-            username: postgres
+            username: aqremmaq
             password: 'megan1963@'
 
             properties:
                 jmxEnabled: true
                 initialSize: 5
-                maxActive: 50
+                maxActive: 10
                 minIdle: 5
-                maxIdle: 25
+                maxIdle: 5
                 maxWait: 10000
                 maxAge: 600000
                 timeBetweenEvictionRunsMillis: 5000
