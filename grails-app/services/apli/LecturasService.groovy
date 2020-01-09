@@ -273,6 +273,7 @@ class LecturasService {
 //                                println "-----> mag: ${magn[0]} ---> $rgst"
                                 if(magn[0] == null) {
                                     prob_magn += "\n${mg}"
+                                    archivoProblema(arch, mg)
                                     problemas++
                                 }
 //                                println ">>>> ${nmbr} --> ${arch} --> ${mg} --> magn: $magn"
@@ -318,11 +319,14 @@ class LecturasService {
             }
 //            println "---> archivo: ${ar.toString()} --> cont: $cont, repetidos: $repetidos"
         }
+/*
         if(problemas) {
             println "\n${prob_magn} \n${prob_arch}"
         } else {
             println "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos --> problemas: $problemas"
         }
+*/
+        println "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos --> problemas: $problemas"
 
         return "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos --> problemas: $problemas"
     }
@@ -666,7 +670,17 @@ class LecturasService {
         def cn = dbConnectionService.getConnection()
         def sql = "insert into survey.file(id, name, loaded, lines, errors) values(default, '${arch}', " +
                 "'${new Date().format('yyyy-MM-dd HH:mm:ss')}', ${cont}, ${rept})"
-        println "sql: $sql"
+//        println "sql: $sql"
+        cn.execute(sql.toString())
+    }
+
+    def archivoProblema(arch, mg) {
+        def cn = dbConnectionService.getConnection()
+        def sql = "insert into survey.problem(id, rgst, file, datetime, cont) values(default, '${mg}', '${arch}', " +
+                "'${new Date().format('yyyy-MM-dd HH:mm:ss')}', 1) " +
+                "on conflict (file) do update set datetime = '${new Date().format('yyyy-MM-dd HH:mm:ss')}', " +
+                "cont =  survey.problem.cont + 1"
+//                println "sql: $sql"
         cn.execute(sql.toString())
     }
 
