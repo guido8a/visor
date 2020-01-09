@@ -54,18 +54,20 @@ class LecturasService {
             if(!procesado) {
                 File original = new File(ar.toString())
                 File destino
+
+/*
                 if(ar.toString().toLowerCase().contains('iuv') || ar.toString().toLowerCase().contains('sol_')) {
                     def tx = nmbr.substring(nmbr.indexOf('/') + 1, nmbr.size())
-//                    println "nmbr: ${nmbr} --> $tx"
                     destino  = new File(dir_iuv + tx)
                     cn_iuv++
                 } else {
+*/
                     destino  = new File(dir_data + nmbr)
                     cn_data++
-                }
-                println "------------ copiando archivo: ${ar.toString()}, a: ${destino} --> ${cn_iuv + cn_data}"
+//                }
+//                println "------------ copiando archivo: ${ar.toString()}, a: ${destino} --> ${cn_iuv + cn_data}"
                 if (original.exists()) {
-                    println "---> ${destino.getParent()}"
+//                    println "---> ${destino.getParent()}"
                     File dire = new File(destino.getParent())
                     File subd = new File(dire.getParent())
                     subd.mkdir()
@@ -79,6 +81,8 @@ class LecturasService {
             }
 //            println "---> archivo: ${ar.toString()}  --> procesado: ${procesado}"
         }
+
+        println "Se han movido ${cn_data} archivos a ${dir_data}"
 
         return "Se han movido ${cn_data} archivos a ${dir_data} y ${cn_iuv} a: ${dir_iuv}"
     }
@@ -202,11 +206,15 @@ class LecturasService {
         def magn
         def sqlp
         def directorio
+        def prob_magn = "No se encontró la magnitud para"
+        def prob_arch = "PROBLEMAS ${new Date()}"
+        def problemas = 0
 
         if(grails.util.Environment.getCurrent().name == 'development') {
-            directorio = '/home/guido/proyectos/visor/dataIUV/2018'
+//            directorio = '/home/guido/proyectos/visor/dataIUV/2018'
+            directorio = '/home/guido/proyectos/visor/data'
         } else {
-            directorio = '/home/data/dataIUV/'
+            directorio = '/home/data/data/'
         }
 
         if (tipo == 'prueba') { //botón: Cargar datos Minutos
@@ -236,7 +244,7 @@ class LecturasService {
 
                 if (!procesado) {
 //                    println "Cargando datos desde: $arch"
-                    print "Cargando datos IUV desde: $ar "
+//                    print "Cargando datos IUV desde: $ar "   /** menaje de cargado de archivo **/
                     while ((line = reader.readLine()) != null) {
                         if (cuenta < procesa) {
 //                        println "${line}"
@@ -248,17 +256,25 @@ class LecturasService {
                             rgst = line.split(';')
                             rgst = rgst*.trim()
 
-//                        println "***** $rgst, --> ${rgst}   cuenta: $cuenta"
+//                        println "***** $rgst   cuenta: $cuenta"
 
                             if (cuenta == 0) {
                                 estc = datosEstaciones(rgst)
-                                if(estc && cuenta == 0) cuenta = 1
+//                                if(estc && cuenta == 0) cuenta = 1
 //                                println "estaciones: $estc"
-                            } else if (cuenta < 3 && (rgst[1].toString().contains('Ed') || (rgst[1].toString().contains('IUV')))) {
-//                                println "cuenta: $cuenta, registro: $rgst"
-                                rgst = rgst*.replaceAll(('EdPAR'), ('PAR'))
+                            } else if (cuenta ==1) {
+//                                println ">>cuenta: $cuenta, registro: $rgst"
+                                if(rgst[1].toString().contains('Ed')) {
+                                    rgst = rgst*.replaceAll(('EdPAR'), ('PAR'))
+                                }
                                 mg = rgst[1..-1]
+//                                println "buisca magn: $mg"
                                 magn = buscaMagnIUV(mg)
+//                                println "-----> mag: ${magn[0]} ---> $rgst"
+                                if(magn[0] == null) {
+                                    prob_magn += "\n${mg}"
+                                    problemas++
+                                }
 //                                println ">>>> ${nmbr} --> ${arch} --> ${mg} --> magn: $magn"
 
                             } else if (rgst[0] && rgst[0] != 'FECHA' && rgst[0].toString().toLowerCase() != 'date') {
@@ -273,12 +289,22 @@ class LecturasService {
                                 rgst[0] = fcha
 //                            println "---> Registro: $rgst"
 
-                                inserta = cargarLectIUV(rgst, magn, estc)
-                                cont += inserta.insertados
-                                repetidos += inserta.repetidos
+                                if(magn[0] && estc[0]) {
+                                    inserta = cargarLectIUV(rgst, magn, estc)
+                                    cont += inserta.insertados
+                                    repetidos += inserta.repetidos
+                                } else {
+                                    prob_arch += "\n${ar.toString()}"
+                                    problemas++
+                                }
                             }
 
-                            if(rgst.size() > 2 && rgst[-3] != 0) cuenta++  /* se cuentan sólo si hay valores */
+//                            if(rgst.size() > 0 && rgst[1]) cuenta++  /* se cuentan sólo si hay valores */
+                            if(cuenta > 3 && rgst[1] != 0) {  /* se cuentan sólo si hay valores */
+                                cuenta++
+                            }  else {
+                                cuenta++
+                            }
 
                         }
                     }
@@ -287,15 +313,18 @@ class LecturasService {
 //                    println "--- file: ${arch}"
                         archivoSubido(arch, cont, repetidos)
                     }
-                    println "--> cont: $cont, repetidos: $repetidos"
-
+//                    println "--> cont: $cont, repetidos: $repetidos"   /** menaje de cargado de archivo **/
                 }
-
             }
 //            println "---> archivo: ${ar.toString()} --> cont: $cont, repetidos: $repetidos"
         }
+        if(problemas) {
+            println "\n${prob_magn} \n${prob_arch}"
+        } else {
+            println "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos --> problemas: $problemas"
+        }
 
-        return "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos"
+        return "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos --> problemas: $problemas"
     }
 
 
@@ -348,7 +377,7 @@ class LecturasService {
         def sql = ""
         def tbla = "survey.data"
 
-//        println "\n inicia cargado de datos para mag: $vrbl, .... $rgst"
+        println "\n inicia cargado de datos para mag: $vrbl, .... $rgst"
         fcha = rgst[0]
         rgst.removeAt(0)  // elimina la fecha y quedan solo lecturas
 
@@ -599,7 +628,7 @@ class LecturasService {
         def cn = dbConnectionService.getConnection()
         def sql = ""
 
-//        println "\n inicia cargado de datos para mag: $magn, estc: ${estc}.... $rgst"
+//        println "\n **inicia cargado de datos para mag: $magn, estc: ${estc}.... $rgst"
         fcha = rgst[0]
         rgst.removeAt(0)  // elimina la fecha y quedan solo lecturas
 

@@ -9,8 +9,8 @@ class VisorJob {
     def lecturasService
 
     static triggers = {
-        simple startDelay: 1000*60*1, repeatInterval: 1000*60*60*4  /* cada 10 minutos */
-//        simple startDelay: 1000*10, repeatInterval: 1000*60*60*50  /* cada 10 minutos */
+//        simple startDelay: 1000*60*1, repeatInterval: 1000*60*60*4  /* cada 10 minutos */
+        simple startDelay: 1000*3, repeatInterval: 1000*60*60*50  /* cada 10 minutos */
     }
 
 
@@ -27,9 +27,9 @@ class VisorJob {
         def cont = 1
         println "Ejecuta procesos automáticos: ${new Date()}"
         lecturasService.mueveArch()
-//        lecturasService.leeCSV('prueba')
+//        lecturasService.leeCSV('prueba')  /* no se usa */
+//        lecturasService.leeCSV('prod')  /* no se usa */
 //        lecturasService.cargaIUV('prueba')
-        lecturasService.leeCSV('prod')
         lecturasService.cargaIUV('prod')
         lecturasService.calcular()
         lecturasService.calcularDir()

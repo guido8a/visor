@@ -116,8 +116,8 @@ environments:
             dbCreate: update
             url: jdbc:postgresql://127.0.0.1:5432/visorprod
 #            url: jdbc:postgresql://50.116.33.232:5432/visorprod
-            username: 'postgres'
-            password: 'postgres'
+            username: 'aqremmaq'
+            password: 'remmaq'
 #            username: aqremmaq
 #            password: 'megan1963@'
 
