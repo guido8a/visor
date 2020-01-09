@@ -142,7 +142,7 @@ environments:
             dbCreate: none
             url: jdbc:postgresql://127.0.0.1:5432/visorprod
             username: aqremmaq
-            password: 'megan1963@'
+            password: 'meghan3963'
 
             properties:
                 jmxEnabled: true
