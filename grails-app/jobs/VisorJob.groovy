@@ -11,8 +11,8 @@ class VisorJob {
     def dbConnectionService
 
     static triggers = {
-//        simple startDelay: 1000*60*1, repeatInterval: 1000*60*60*5  /* cada 10 minutos */
-        simple startDelay: 1000*3, repeatInterval: 1000*60*60*50  /* cada 10 minutos */
+        simple startDelay: 1000*60*1, repeatInterval: 1000*60*60*5  /* cada 10 minutos */
+//        simple startDelay: 1000*3, repeatInterval: 1000*60*60*50  /* cada 10 minutos */
     }
 
 
@@ -27,11 +27,11 @@ class VisorJob {
 
     void execute() {
         def cont = 1
-        println "Ejecuta procesos automáticos: ${new Date()}"
-//        lecturasService.mueveArch()
-        cargaArchivo('prueba')
-//        lecturasService.cargaIUV('prueba')
-//        lecturasService.cargaIUV('prod')
+        println ">>> Ejecuta procesos automáticos: ${new Date()}"
+        lecturasService.mueveArch()
+        println ">>> Inicia cargado de datos de archivos en ../data: ${new Date()}"
+//        cargaArchivo('prueba')
+        cargaArchivo('prod')
 //        lecturasService.calcular()
 //        lecturasService.calcularDir()
 
@@ -164,7 +164,7 @@ class VisorJob {
 //                if(true) {
                     if (crea_log) {
 //                    println "--- file: ${arch}"
-                        archivoSubido(arch, cont, repetidos)
+                        lecturasService.archivoSubido(arch, cont, repetidos)
                     }
                     println "--> cont: $cont, repetidos: $repetidos"   /** menaje de cargado de archivo **/
                 }
