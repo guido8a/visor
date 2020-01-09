@@ -70,6 +70,7 @@ class LecturasService {
 //                    println "---> ${destino.getParent()}"
                     File dire = new File(destino.getParent())
                     File subd = new File(dire.getParent())
+                    File sub2 = new File(subd.getParent())
                     subd.mkdir()
                     dire.mkdir()
                     Files.copy(Paths.get(original.getAbsolutePath()), Paths.get(destino.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING)
