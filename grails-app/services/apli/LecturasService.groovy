@@ -334,9 +334,6 @@ class LecturasService {
     }
 
 
-
-
-
     def buscaMagn(ar) {
         def cn = dbConnectionService.getConnection()
         def sql = "select id from survey.magnitude where abbreviation ilike '${ar}' limit 1"
