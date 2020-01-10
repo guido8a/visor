@@ -140,7 +140,7 @@ class VisorJob {
                                 }
 
                                 rgst[0] = fcha
-                            println "---> Registro: $rgst"
+//                            println "---> Registro: $rgst"
 
                                 if(magn[0] && estc[0]) {
                                     inserta = lecturasService.cargarLectIUV(rgst, magn, estc)
