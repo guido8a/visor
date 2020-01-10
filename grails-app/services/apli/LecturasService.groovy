@@ -65,7 +65,7 @@ class LecturasService {
                     destino  = new File(dir_data + nmbr)
                     cn_data++
 //                }
-                println "------------ copiando archivo: ${ar.toString()}, a: ${destino} --> ${cn_iuv + cn_data}"
+//                println "------------ copiando archivo: ${ar.toString()}, a: ${destino} --> ${cn_iuv + cn_data}"
                 if (original.exists()) {
 //                    println "---> ${destino.getParent()}"
                     File dire = new File(destino.getParent())

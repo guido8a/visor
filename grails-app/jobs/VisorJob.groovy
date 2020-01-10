@@ -12,7 +12,7 @@ class VisorJob {
 
     static triggers = {
         simple startDelay: 1000*60*1, repeatInterval: 1000*60*60*8  /* cada 10 minutos */
-//        simple startDelay: 1000*3, repeatInterval: 1000*60*60*50  /* cada 10 minutos */
+//        simple startDelay: 1000*20, repeatInterval: 1000*60*60*50  /* cada 10 minutos */
     }
 
 
@@ -30,10 +30,10 @@ class VisorJob {
         println ">>> Ejecuta procesos automáticos: ${new Date()}"
         lecturasService.mueveArch()
         println ">>> Inicia cargado de datos de archivos en ../data: ${new Date()}"
-//        cargaArchivo('prueba')
+        cargaArchivo('prueba')
         cargaArchivo('prod')
-        lecturasService.calcular()
-        lecturasService.calcularDir()
+        calcular()
+        calcularDir()
 
         println "Fin procesos automáticos: ${new Date()}"
 //        lecturasService.leeCSV('prueba')  /* no se usa */
@@ -180,7 +180,185 @@ class VisorJob {
 */
         println "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos --> problemas: $problemas"
 
-        return "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos --> problemas: $problemas"
+//        return "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos --> problemas: $problemas"
+    }
+
+
+    def calcular() {
+        println "calcular job -->"
+        def cn = dbConnectionService.getConnection()
+        def sql = ""
+        def sql1 = ""
+        def sqlp = ""
+        def magn = []
+        def estc = []
+        def salida = ""
+        def salidaTotal = ""
+        def cnta = 0
+        def desde
+        def hasta
+        def proceso
+        def fcha
+        def fchaFin
+        def frmtFcha = new SimpleDateFormat("yyyy-MM-dd")
+
+        sql = "select distinct magnitude_id id from survey.data where magnitude_id != 82 order by 1"
+        magn = cn.rows(sql.toString())
+//        println "....1"
+
+        proceso = ['10 minutes', '1 hours', '8 hours', '24 hours', '72 hours']
+        proceso.each { prcs ->
+            magn.each { mg ->
+//                sql = "select distinct opoint_id id from partitions.data${mg.id} where avg1m is not null order by 1"
+                sql = "select distinct opoint_id id from survey.data where avg1m is not null order by 1"
+                println "mg--> ${mg.id}"
+
+                estc = cn.rows(sql.toString())
+//            println "....2 estc: ${estc}"
+
+                estc.each { es ->
+                    sql1 = "select min(datetime)::date fcin, max(datetime)::date fcfn from survey.data " +
+                            "where magnitude_id = ${mg.id} and opoint_id = ${es.id} and avg1m is not null"
+//                    print "mg--> ${mg.id}: $sql1"
+                    cn.eachRow(sql1.toString()) { d ->
+                        if(d.fcin && d.fcfn) {
+//                            println "fcin: ${d.fcin}, fcfn: ${d.fcfn}"
+//                            desde = new Date().parse("yyyy-MM-dd", "${d.fcfn}")
+                            desde = new SimpleDateFormat("yyyy-MM-dd").parse("${d.fcin}")
+                            hasta = new SimpleDateFormat("yyyy-MM-dd").parse("${d.fcfn}")
+//                            println "desde: ${desde}"
+                        } else {
+                            desde = new Date()
+                            hasta = desde
+                        }
+                    }
+//                    println "desde: ${desde}, hasta: ${hasta}"
+
+                    fcha = desde
+//                    fchaFin = new Date().parse("dd-MM-yyyy", "31-12-${fcha.format('yyyy')}")
+//                    fchaFin = new SimpleDateFormat("dd-MM-yyyy").parse("31-12-${fcha.format('yyyy')}")
+                    fchaFin = new SimpleDateFormat("dd-MM-yyyy").parse("31-12-${fcha.getYear()+1900}")
+//                    println "procesa desde ${desde} hasta: ${fchaFin}"
+                    while (fcha < hasta) {
+                        use(groovy.time.TimeCategory) {
+//                            println "---> ${fcha} hasta ${fchaFin}"
+                            sqlp = "select count(*) cnta from survey.process " +
+                                    "where '${frmtFcha.format(fcha)}' between from_date and to_date and " +
+                                    "'${frmtFcha.format(fchaFin)}' between from_date and to_date and " +
+                                    "magnitude_id = ${mg.id} and opoint_id = ${es.id} and name ilike '${prcs}'"
+//                            println "... $sqlp"
+                            def procesado = cn.rows(sqlp.toString())[0].cnta
+                            if (!procesado) {
+//                                print "*** ${prcs} mg--> ${mg.id}, estc: ${es.id} '${fcha.format('yyyy-MM-dd')}' a '${fchaFin.format('yyyy-MM-dd')}'"
+                                sql = "select * from survey.promedios(${mg.id}, ${es.id}, '${prcs}', " +
+                                        "'${frmtFcha.format(fcha)}', '${frmtFcha.format(fchaFin)}')"
+//                                println "sql--> $sql"
+                                cn.eachRow(sql.toString()) { dt ->
+                                    salida = dt.promedios
+                                }
+
+                                println " procesa ${prcs}: magnitud: $mg con estc: $es --> $salida"
+                                cnta++
+                                lecturasService.procesoHecho(mg.id, es.id, prcs, salida, frmtFcha.format(fcha), frmtFcha.format(fchaFin), salida)
+                                salidaTotal += salidaTotal ? "\n${salida}" : salida
+                            }
+
+                            fcha = fchaFin + 1.day
+                            if (fchaFin + 1.year > hasta) {
+                                fchaFin = hasta
+                            } else {
+                                fchaFin = fchaFin + 1.year
+                            }
+                        }
+                    }
+
+                }
+            }
+
+        }
+        println "Porcesado: ${salidaTotal}"
+//        return "Porcesado: ${salidaTotal}"
+    }
+
+
+    def calcularDir() {
+        println "calcularDir job --"
+        def cn = dbConnectionService.getConnection()
+        def sql = ""
+        def sql1 = ""
+        def sqlp = ""
+        def magn = []
+        def estc = []
+        def salida = ""
+        def salidaTotal = ""
+        def cnta = 0
+        def desde
+        def hasta
+        def proceso
+        def fcha
+        def fchaFin
+
+        proceso = ['10 minutes', '1 hours', '8 hours', '24 hours', '72 hours']
+        proceso.each { prcs ->
+            sql = "select distinct opoint_id id from survey.data where magnitude_id = 82 and " +
+                    "avg1m is not null order by 1"
+            println "ppp: $sql"
+            estc = cn.rows(sql.toString())
+//            println "....2 estc: ${estc}"
+
+            estc.each { es ->
+                sql1 = "select min(datetime)::date fcin, max(datetime)::date fcfn from survey.data " +
+                        "where magnitude_id = 82 and opoint_id = ${es.id} and avg1m is not null"
+//                    print "mg--> ${mg.id}: $sql1"
+                cn.eachRow(sql1.toString()) { d ->
+//                    println "fcin: ${d.fcin}, fcfn: ${d.fcfn}"
+                    desde = new Date().parse("yyyy-MM-dd", "${d.fcin}")
+                    hasta = new Date().parse("yyyy-MM-dd", "${d.fcfn}")
+                }
+//                    println "desde: ${desde}, hasta: ${hasta}"
+
+                fcha = desde
+                fchaFin = new Date().parse("dd-MM-yyyy", "31-12-${fcha.format('yyyy')}")
+//                    println "procesa desde ${desde} hasta: ${hasta}"
+                while (fcha < hasta) {
+                    use(groovy.time.TimeCategory) {
+//                            println "---> ${fcha} hasta ${fchaFin}"
+                        sqlp = "select count(*) cnta from survey.process " +
+                                "where '${fcha.format('yyyy-MM-dd')}' between from_date and to_date and " +
+                                "'${fchaFin.format('yyyy-MM-dd')}' between from_date and to_date and " +
+                                "magnitude_id = 82 and opoint_id = ${es.id} and name ilike '${prcs}'"
+//                            println "... $sqlp"
+                        def procesado = cn.rows(sqlp.toString())[0].cnta
+                        if (!procesado) {
+                            print "*** Dir: ${prcs} estc: ${es.id} '${fcha.format('yyyy-MM-dd')}' a '${fchaFin.format('yyyy-MM-dd')}'"
+                            sql = "select * from survey.promedios_dir(${es.id}, '${prcs}', " +
+                                    "'${fcha.format('yyyy-MM-dd')}', '${fchaFin.format('yyyy-MM-dd')}')"
+//                            println "sql--> $sql"
+                            cn.eachRow(sql.toString()) { dt ->
+                                salida = dt.promedios_dir
+                            }
+
+                            println "procesa dirección viento ${prcs} con estc: $es --> $salida"
+                            cnta++
+                            lecturasService.procesoHecho(82, es.id, prcs, salida, fcha.format('yyyy-MM-dd'), fchaFin.format('yyyy-MM-dd'), salida)
+                            salidaTotal += salidaTotal ? "\n${salida}" : salida
+                        }
+
+                        fcha = fchaFin + 1.day
+                        if (fchaFin + 1.year > hasta) {
+                            fchaFin = hasta
+                        } else {
+                            fchaFin = fchaFin + 1.year
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+        println "Porcesado: ${salidaTotal}"
+//        return "Porcesado: ${salidaTotal}"
     }
 
 
