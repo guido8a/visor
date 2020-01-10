@@ -30,7 +30,7 @@ class VisorJob {
         println ">>> Ejecuta procesos automáticos: ${new Date()}"
         lecturasService.mueveArch()
         println ">>> Inicia cargado de datos de archivos en ../data: ${new Date()}"
-        cargaArchivo('prueba')
+//        cargaArchivo('prueba')
         cargaArchivo('prod')
         calcular()
         calcularDir()

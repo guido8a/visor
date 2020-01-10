@@ -79,7 +79,7 @@ class LecturasService {
                     println "El fichero ${original} no existe"
                 }
             } else {
-                println "++ ya existe ${arch}"
+//                println "++ ya existe ${arch}"
             }
 //            println "---> archivo: ${ar.toString()}  --> procesado: ${procesado}"
         }
