@@ -210,7 +210,8 @@ class VisorJob {
         proceso.each { prcs ->
             magn.each { mg ->
 //                sql = "select distinct opoint_id id from partitions.data${mg.id} where avg1m is not null order by 1"
-                sql = "select distinct opoint_id id from survey.data where avg1m is not null order by 1"
+                sql = "select distinct opoint_id id from survey.data where magnitude_id = ${mg.id} and " +
+                        "avg1m is not null order by 1"
                 println "mg--> ${mg.id}"
 
                 estc = cn.rows(sql.toString())
