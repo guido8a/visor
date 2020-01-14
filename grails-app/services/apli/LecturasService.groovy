@@ -683,6 +683,9 @@ class LecturasService {
         cn.execute(sql.toString())
     }
 
+    def incrementa(cont) {
+        return cont++
+    }
 
 
 }

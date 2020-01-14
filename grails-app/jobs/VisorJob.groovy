@@ -12,7 +12,9 @@ class VisorJob {
 
     static triggers = {
         simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 2  /* cada 10 minutos */
-//        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 * 60 * 50  /* cada 10 minutos */
+
+//        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 * 60 * 50  /* nunca */
+//        simple startDelay: 1000 * 3, repeatInterval: 1000 * 10  /* cada 30 segundos */
     }
 
 
@@ -24,28 +26,24 @@ class VisorJob {
      * 4. ejecuta calcular datos derivados  --> calcular()
      * 5. ejecuta calcular dirección        --> calcularDir()
      **/
-
     void execute() {
-        def cont = 1
         println ">>> Ejecuta procesos automáticos: ${new Date()}"
         lecturasService.mueveArch()
-        println ">>> Inicia cargado de datos de archivos en ../data: ${new Date()}"
+
 //        cargaArchivo('prueba')
+
+        println ">>> Inicia cargado de datos de archivos en ../data: ${new Date()}"
         cargaArchivo('prod')
         calcular()
         calcularDir()
         activar()
         calcularHoy()
         calcularDirHoy()
-
         println "Fin procesos automáticos: ${new Date()}"
-//        lecturasService.leeCSV('prueba')  /* no se usa */
-//        lecturasService.leeCSV('prod')  /* no se usa */
     }
 
 
     def cargaArchivo(tipo) {
-//        println ">>cargaIUV.."
         def contador = 0
         def cn = dbConnectionService.getConnection()
         def estc
@@ -374,40 +372,48 @@ class VisorJob {
         def magn = ""
         def estc = ""
         def nmro = 0
+        def actv = 0
 
-        sql = "select distinct magnitude_id id from survey.data"
-        cn.eachRow(sql.toString()) { m ->
-            magn += magn ? ", ${m.id}" : m.id
+        sql = "select activate from prmt"
+        actv = cn.rows(sql.toString())[0].activate
+        cn.execute("update prmt set activate = activate + 1")
+        if (actv % 12 == 0) {
+            cn.execute("update prmt set activate = 1")
+            /* procesa activar estaciones y magnitudes */
+            sql = "select distinct magnitude_id id from survey.data"
+            cn.eachRow(sql.toString()) { m ->
+                magn += magn ? ", ${m.id}" : m.id
+            }
+            println "magnitudes $magn"
+
+            sql = "select distinct opoint_id id from survey.data"
+            cn.eachRow(sql.toString()) { e ->
+                estc += estc ? ", ${e.id}" : e.id
+            }
+            println "estaciones $estc"
+
+            sql = "update survey.magnitude set active = 'S' where id in ($magn)"
+//        println "sql --> $sql"
+            cn.execute(sql.toString())
+            nmro += cn.updateCount
+
+            sql = "update survey.magnitude set active = 'N' where id not in ($magn)"
+//        println "sql --> $sql"
+            cn.execute(sql.toString())
+            nmro += cn.updateCount
+
+            sql = "update survey.opoint set active = 'S' where id in ($estc)"
+//        println "sql --> $sql"
+            cn.execute(sql.toString())
+            nmro += cn.updateCount
+
+            sql = "update survey.opoint set active = 'N' where id not in ($estc)"
+//        println "sql --> $sql"
+            cn.execute(sql.toString())
+            nmro += cn.updateCount
+
+            println "Porcesado: ... $nmro registros"
         }
-        println "magnitudes $magn"
-
-        sql = "select distinct opoint_id id from survey.data"
-        cn.eachRow(sql.toString()) { e ->
-            estc += estc ? ", ${e.id}" : e.id
-        }
-        println "estaciones $estc"
-
-        sql = "update survey.magnitude set active = 'S' where id in ($magn)"
-//        println "sql --> $sql"
-        cn.execute(sql.toString())
-        nmro += cn.updateCount
-
-        sql = "update survey.magnitude set active = 'N' where id not in ($magn)"
-//        println "sql --> $sql"
-        cn.execute(sql.toString())
-        nmro += cn.updateCount
-
-        sql = "update survey.opoint set active = 'S' where id in ($estc)"
-//        println "sql --> $sql"
-        cn.execute(sql.toString())
-        nmro += cn.updateCount
-
-        sql = "update survey.opoint set active = 'N' where id not in ($estc)"
-//        println "sql --> $sql"
-        cn.execute(sql.toString())
-        nmro += cn.updateCount
-
-        println "Porcesado: ... $nmro registros"
     }
 
 
@@ -420,7 +426,7 @@ class VisorJob {
         def salida = ""
         def proceso = ['10 minutes', '1 hours', '8 hours', '24 hours', '72 hours']
         def fchaFin = new Date()
-        def fcha = fchaFin - 90
+        def fcha = fchaFin - 5
 
         sql = "select distinct id from survey.magnitude where active = 'S' and id != 82 order by 1"
         magn = cn.rows(sql.toString())
@@ -454,7 +460,7 @@ class VisorJob {
         def salida = ""
         def proceso = ['10 minutes', '1 hours', '8 hours', '24 hours', '72 hours']
         def fchaFin = new Date()
-        def fcha = fchaFin - 90
+        def fcha = fchaFin - 5
 
         sql = "select distinct opoint_id id from survey.data where magnitude_id = 82 and " +
                 "avg1m is not null order by 1"
