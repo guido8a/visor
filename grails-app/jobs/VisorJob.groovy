@@ -11,7 +11,7 @@ class VisorJob {
     def dbConnectionService
 
     static triggers = {
-        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 8  /* cada 10 minutos */
+        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 2  /* cada 10 minutos */
 //        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 * 60 * 50  /* cada 10 minutos */
     }
 
@@ -194,7 +194,7 @@ class VisorJob {
         def magn = []
         def estc = []
         def salida = ""
-        def salidaTotal = ""
+//        def salidaTotal = ""
         def cnta = 0
         def desde
         def hasta
@@ -265,7 +265,7 @@ class VisorJob {
                                 println " procesa ${prcs}: magnitud: $mg con estc: $es --> $salida"
                                 cnta++
                                 lecturasService.procesoHecho(mg.id, es.id, prcs, salida, frmtFcha.format(fcha), frmtFcha.format(fchaFin), salida)
-                                salidaTotal += salidaTotal ? "\n${salida}" : salida
+//                                salidaTotal += salidaTotal ? "\n${salida}" : salida
                             }
 
                             fcha = fchaFin + 1.day
@@ -281,7 +281,7 @@ class VisorJob {
             }
 
         }
-        println "Porcesado: ${salidaTotal}"
+//        println "Porcesado: ${salidaTotal}"
 //        return "Porcesado: ${salidaTotal}"
     }
 
@@ -295,7 +295,7 @@ class VisorJob {
         def magn = []
         def estc = []
         def salida = ""
-        def salidaTotal = ""
+//        def salidaTotal = ""
         def cnta = 0
         def desde
         def hasta
@@ -347,7 +347,7 @@ class VisorJob {
                             println "procesa dirección viento ${prcs} con estc: $es --> $salida"
                             cnta++
                             lecturasService.procesoHecho(82, es.id, prcs, salida, fcha.format('yyyy-MM-dd'), fchaFin.format('yyyy-MM-dd'), salida)
-                            salidaTotal += salidaTotal ? "\n${salida}" : salida
+//                            salidaTotal += salidaTotal ? "\n${salida}" : salida
                         }
 
                         fcha = fchaFin + 1.day
@@ -363,7 +363,7 @@ class VisorJob {
 
         }
 
-        println "Porcesado: ${salidaTotal}"
+//        println "Porcesado: ${salidaTotal}"
 //        return "Porcesado: ${salidaTotal}"
     }
 
@@ -388,22 +388,22 @@ class VisorJob {
         println "estaciones $estc"
 
         sql = "update survey.magnitude set active = 'S' where id in ($magn)"
-        println "sql --> $sql"
+//        println "sql --> $sql"
         cn.execute(sql.toString())
         nmro += cn.updateCount
 
         sql = "update survey.magnitude set active = 'N' where id not in ($magn)"
-        println "sql --> $sql"
+//        println "sql --> $sql"
         cn.execute(sql.toString())
         nmro += cn.updateCount
 
         sql = "update survey.opoint set active = 'S' where id in ($estc)"
-        println "sql --> $sql"
+//        println "sql --> $sql"
         cn.execute(sql.toString())
         nmro += cn.updateCount
 
         sql = "update survey.opoint set active = 'N' where id not in ($estc)"
-        println "sql --> $sql"
+//        println "sql --> $sql"
         cn.execute(sql.toString())
         nmro += cn.updateCount
 
