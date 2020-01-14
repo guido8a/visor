@@ -11,7 +11,7 @@ class VisorJob {
     def dbConnectionService
 
     static triggers = {
-        simple startDelay: 1000*60*1, repeatInterval: 1000*60*60*8  /* cada 10 minutos */
+        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 8  /* cada 10 minutos */
 //        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 * 60 * 50  /* cada 10 minutos */
     }
 
@@ -203,7 +203,7 @@ class VisorJob {
         def fchaFin
         def frmtFcha = new SimpleDateFormat("yyyy-MM-dd")
 
-        sql = "select distinct magnitude_id id from survey.data where magnitude_id != 82 order by 1"
+        sql = "select distinct id from survey.magnitude where active = 'S' and id != 82 order by 1"
         magn = cn.rows(sql.toString())
 //        println "....1"
 
@@ -211,8 +211,11 @@ class VisorJob {
         proceso.each { prcs ->
             magn.each { mg ->
 //                sql = "select distinct opoint_id id from partitions.data${mg.id} where avg1m is not null order by 1"
+                sql = "select distinct id id from survey.opoint where active = 'S' order by 1"
+/*
                 sql = "select distinct opoint_id id from survey.data where magnitude_id = ${mg.id} and " +
                         "avg1m is not null order by 1"
+*/
                 println "mg--> ${mg.id}"
 
                 estc = cn.rows(sql.toString())
@@ -302,9 +305,10 @@ class VisorJob {
 
         proceso = ['10 minutes', '1 hours', '8 hours', '24 hours', '72 hours']
         proceso.each { prcs ->
+
             sql = "select distinct opoint_id id from survey.data where magnitude_id = 82 and " +
                     "avg1m is not null order by 1"
-            println "ppp: $sql"
+//            println "ppp: $sql"
             estc = cn.rows(sql.toString())
 //            println "....2 estc: ${estc}"
 
@@ -452,27 +456,22 @@ class VisorJob {
         def fchaFin = new Date()
         def fcha = fchaFin - 90
 
-        sql = "select distinct id from survey.magnitude where active = 'S' and id = 82"
-        magn = cn.rows(sql.toString())
-        proceso.each { prcs ->
-            magn.each { mg ->
-                print " procesa dirrección ${prcs}: magnitud: ${mg.id} "
+        sql = "select distinct opoint_id id from survey.data where magnitude_id = 82 and " +
+                "avg1m is not null order by 1"
 
-                sql = "select distinct id id from survey.opoint where active = 'S'"
-                estc = cn.rows(sql.toString())
-                estc.each { es ->
-                    sql = "select * from survey.promedios_dir(${es.id}, '${prcs}', " +
-                            "'${fcha.format('yyyy-MM-dd')}', '${fchaFin.format('yyyy-MM-dd')}')"
-//                    println "sql--> $sql"
-                    cn.eachRow(sql.toString()) { dt ->
-                        salida = dt.promedios_dir
-                    }
-                    print "..${es.id}"
+        estc = cn.rows(sql.toString())
+//            println "....2 estc: ${estc}"
+        proceso.each { prcs ->
+            print " procesa dirrección ${prcs}: dirección del viento "
+            estc.each { es ->
+                sql = "select * from survey.promedios_dir(${es.id}, '${prcs}', " +
+                        "'${fcha.format('yyyy-MM-dd')}', '${fchaFin.format('yyyy-MM-dd')}')"
+                cn.eachRow(sql.toString()) { dt ->
+                    salida = dt.promedios_dir
                 }
-                println ""
+                print "..${es.id}"
             }
+            println ""
         }
     }
-
-
 }
