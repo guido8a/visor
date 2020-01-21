@@ -640,6 +640,9 @@ class LecturasService {
 //            println "--> estación: ${estc[cnta]}, valor: $rg, tipo: ${rg.class}, ${rg.size()}"
             if (rg.toString().size() > 0) {
 //                println "--> estación: ${estc[cnta]}, valor: $rg"
+                if((estc[cnta] == '1') && (magn[cnta] in [99, 201])) {
+                    println "cambia estación mag: ${magn[cnta]}, estc: ${estc[cnta]}"
+                }
                 sql = "insert into survey.data (id, magnitude_id, opoint_id, datatype_id, datetime, avg1m) " +
                         "values(default, ${magn[cnta]}, ${estc[cnta]}, 1, '${fcha.format('yyyy-MM-dd HH:mm')}', ${rg.toDouble()}) " +
                         "on conflict (magnitude_id, opoint_id, datetime, datatype_id) " +
