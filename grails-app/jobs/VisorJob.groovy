@@ -170,6 +170,11 @@ class VisorJob {
             }
 //            println "---> archivo: ${ar.toString()} --> cont: $cont, repetidos: $repetidos"
         }
+
+        /* cambia datos de estaciones IUV y IRADD_UV */
+        lecturasService.cambiaEstacion(1, 51, '99, 201')
+        lecturasService.cambiaEstacion(6, 41, '99, 201')
+        lecturasService.cambiaEstacion(7, 31, '99, 201')
 /*
         if(problemas) {
             println "\n${prob_magn} \n${prob_arch}"
