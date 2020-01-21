@@ -644,7 +644,7 @@ class LecturasService {
                         "values(default, ${magn[cnta]}, ${estc[cnta]}, 1, '${fcha.format('yyyy-MM-dd HH:mm')}', ${rg.toDouble()}) " +
                         "on conflict (magnitude_id, opoint_id, datetime, datatype_id) " +
                         "do update set avg1m = ${rg.toDouble()}"
-                println "sql: $sql"
+//                println "sql: $sql"
 
                 try {
                     cn.execute(sql.toString())
