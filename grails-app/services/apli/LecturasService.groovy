@@ -630,6 +630,8 @@ class LecturasService {
         def fcha
         def cn = dbConnectionService.getConnection()
         def sql = ""
+        def mg_es = ""
+        def xx_es = [1:51, 6:41, 7:31]
 
 //        println "\n **inicia cargado de datos para mag: $magn, estc: ${estc}.... $rgst"
         fcha = rgst[0]
@@ -640,11 +642,14 @@ class LecturasService {
 //            println "--> estación: ${estc[cnta]}, valor: $rg, tipo: ${rg.class}, ${rg.size()}"
             if (rg.toString().size() > 0) {
 //                println "--> estación: ${estc[cnta]}, valor: $rg"
-                if((estc[cnta] == '1') && (magn[cnta] in [99, 201])) {
-                    println "cambia estación mag: ${magn[cnta]}, estc: ${estc[cnta]}"
+                if((estc[cnta] in xx_es.keySet()) && (magn[cnta] in [99, 201])) {
+                    mg_es = xx_es[estc[cnta]]
+                    println "cambia estación mag: ${magn[cnta]}, estc: ${estc[cnta]} --> mg_es"
+                } else {
+                    mg_es = estc[cnta]
                 }
                 sql = "insert into survey.data (id, magnitude_id, opoint_id, datatype_id, datetime, avg1m) " +
-                        "values(default, ${magn[cnta]}, ${estc[cnta]}, 1, '${fcha.format('yyyy-MM-dd HH:mm')}', ${rg.toDouble()}) " +
+                        "values(default, ${magn[cnta]}, ${mg_es}, 1, '${fcha.format('yyyy-MM-dd HH:mm')}', ${rg.toDouble()}) " +
                         "on conflict (magnitude_id, opoint_id, datetime, datatype_id) " +
                         "do update set avg1m = ${rg.toDouble()}"
 //                println "sql: $sql"

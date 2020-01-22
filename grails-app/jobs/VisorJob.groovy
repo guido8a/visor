@@ -13,7 +13,7 @@ class VisorJob {
     static triggers = {
         simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 2  /* cada 10 minutos */
 
-//        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 * 60 * 50  /* nunca */
+        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 * 60 * 50  /* nunca */
 //        simple startDelay: 1000 * 3, repeatInterval: 1000 * 10  /* cada 30 segundos */
     }
 
@@ -28,17 +28,17 @@ class VisorJob {
      **/
     void execute() {
         println ">>> Ejecuta procesos automáticos: ${new Date()}"
-        lecturasService.mueveArch()
+//        lecturasService.mueveArch()
 
-//        cargaArchivo('prueba')
+        cargaArchivo('prueba')
 
-        println ">>> Inicia cargado de datos de archivos en ../data: ${new Date()}"
-        cargaArchivo('prod')
-        calcular()
-        calcularDir()
-        activar()
-        calcularHoy()
-        calcularDirHoy()
+//        println ">>> Inicia cargado de datos de archivos en ../data: ${new Date()}"
+//        cargaArchivo('prod')
+//        calcular()
+//        calcularDir()
+//        activar()
+//        calcularHoy()
+//        calcularDirHoy()
         println "Fin procesos automáticos: ${new Date()}"
     }
 
