@@ -641,10 +641,10 @@ class LecturasService {
         rgst.each() { rg ->
 //            println "--> estación: ${estc[cnta]}, valor: $rg, tipo: ${rg.class}, ${rg.size()}"
             if (rg.toString().size() > 0) {
-//                println "--> estación: ${estc[cnta]}, valor: $rg"
-                if((estc[cnta] in xx_es.keySet()) && (magn[cnta] in [99, 201])) {
-                    mg_es = xx_es[estc[cnta]]
-                    println "cambia estación mag: ${magn[cnta]}, estc: ${estc[cnta]} --> mg_es"
+//                println "--> estación: ${estc[cnta].class}, mag: ${magn[cnta].class}, valor: $rg"
+                if((estc[cnta].toInteger() in xx_es.keySet()) && (magn[cnta].toInteger() in [99, 201])) {
+                    mg_es = xx_es[estc[cnta].toInteger()]
+                    println "cambia estación mag: ${magn[cnta]}, estc: ${estc[cnta]} --> $mg_es"
                 } else {
                     mg_es = estc[cnta]
                 }
