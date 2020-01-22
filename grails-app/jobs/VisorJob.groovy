@@ -28,7 +28,7 @@ class VisorJob {
      **/
     void execute() {
         println ">>> Ejecuta procesos automáticos: ${new Date()}"
-//        lecturasService.mueveArch()
+        lecturasService.mueveArch()
 
         cargaArchivo('prueba')
 
