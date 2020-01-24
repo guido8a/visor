@@ -644,7 +644,8 @@ class LecturasService {
 //                println "--> estación: ${estc[cnta].class}, mag: ${magn[cnta].class}, valor: $rg"
                 if((estc[cnta].toInteger() in xx_es.keySet()) && (magn[cnta].toInteger() in [99, 201])) {
                     mg_es = xx_es[estc[cnta].toInteger()]
-                    println "cambia estación mag: ${magn[cnta]}, estc: ${estc[cnta]} --> $mg_es"
+//                    println "cambia estación mag: ${magn[cnta]}, estc: ${estc[cnta]} --> $mg_es"
+                    print "."
                 } else {
                     mg_es = estc[cnta]
                 }
