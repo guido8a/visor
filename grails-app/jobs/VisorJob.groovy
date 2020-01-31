@@ -32,6 +32,7 @@ class VisorJob {
         lecturasService.mueveArch()
 
 //        cargaArchivo('prueba')
+        verificar()
 
         println ">>> Inicia cargado de datos de archivos en ../data: ${new Date()}"
         cargaArchivo('prod')
@@ -486,4 +487,27 @@ class VisorJob {
             println ""
         }
     }
+
+
+    def verificar() {
+        println "verificar job -->"
+        def cn = dbConnectionService.getConnection()
+        def sql = ""
+        def magn = []
+
+        sql = "select distinct id from survey.magnitude where active = 'S' order by 1"
+        magn = cn.rows(sql.toString())
+//        println "....1"
+
+        magn.each {mg ->
+            sql = "select * from survey.verifica_data(${mg.id});"
+            println "mg--> ${mg.id}"
+            cn.eachRow(sql.toString()) { d ->
+                println "${d.verifica_data}"
+
+            }
+        }
+    }
+
+
 }
