@@ -258,12 +258,12 @@ class LecturasService {
                             rgst = line.split(';')
                             rgst = rgst*.trim()
 
-//                        println "***** $rgst   cuenta: $cuenta"
+                        println "***** $rgst   cuenta: $cuenta"
 
                             if (cuenta == 0) {
                                 estc = datosEstaciones(rgst)
 //                                if(estc && cuenta == 0) cuenta = 1
-//                                println "estaciones: $estc"
+                                println "estaciones: $estc"
                             } else if (cuenta ==1) {
 //                                println ">>cuenta: $cuenta, registro: $rgst"
                                 if(rgst[1].toString().contains('Ed')) {
@@ -353,7 +353,11 @@ class LecturasService {
         rgst.removeAt(0)
         rgst.each() { rg ->
 //            println "$rgst ilike '${rg}'"
-            sql = "select id from survey.opoint where pname ilike '${rg[0..1]}%${rg[-4..-1]}'"
+//            def nmbr = rg.split(' ').last()
+//            println "...... nmbr: $nmbr"
+//            sql = "select id from survey.opoint where pname ilike '${rg[0..1]}%${rg[-4..-1]}'"
+            sql = "select id from survey.opoint where pname ilike '%${rg[-5..-1]}'"
+//            sql = "select id from survey.opoint where pname ilike '%${nmbr}'"
 //            println "sql: $sql"
             def resp = cn.rows(sql.toString())
 //                println "---> $resp"
@@ -641,7 +645,7 @@ class LecturasService {
         rgst.each() { rg ->
 //            println "--> estación: ${estc[cnta]}, valor: $rg, tipo: ${rg.class}, ${rg.size()}"
             if (rg.toString().size() > 0) {
-//                println "--> estación: ${estc[cnta].class}, mag: ${magn[cnta].class}, valor: $rg"
+//                println "--> estaciónes: $estc --> ${estc[cnta]}, mag: ${magn[cnta]}, valor: $rg"
                 if((estc[cnta].toInteger() in xx_es.keySet()) && (magn[cnta].toInteger() in [99, 201])) {
                     mg_es = xx_es[estc[cnta].toInteger()]
 //                    println "cambia estación mag: ${magn[cnta]}, estc: ${estc[cnta]} --> $mg_es"

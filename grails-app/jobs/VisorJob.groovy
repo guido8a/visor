@@ -15,7 +15,7 @@ class VisorJob {
         simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 2  /* cada 10 minutos */
 
 //        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 * 60 * 50  /* nunca */
-//        simple startDelay: 1000 * 3, repeatInterval: 1000 * 10  /* cada 30 segundos */
+//        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 *30 /* cada 30 minutos */
     }
 
 
@@ -32,7 +32,7 @@ class VisorJob {
         lecturasService.mueveArch()
 
 //        cargaArchivo('prueba')
-        verificar()
+//        verificar()
 
         println ">>> Inicia cargado de datos de archivos en ../data: ${new Date()}"
         cargaArchivo('prod')
@@ -114,14 +114,14 @@ class VisorJob {
                             if (cuenta == 0) {
                                 estc = lecturasService.datosEstaciones(rgst)
 //                                if(estc && cuenta == 0) cuenta = 1
-//                                println "estaciones: $estc"
+//                                println "estaciones: $estc" //* revisar *//
                             } else if (cuenta == 1) {
 //                                println ">>cuenta: $cuenta, registro: $rgst"
                                 if (rgst[1].toString().contains('Ed')) {
                                     rgst = rgst*.replaceAll(('EdPAR'), ('PAR'))
                                 }
+//                                println "busca magn: $rgst"
                                 mg = rgst[1..-1]
-//                                println "buisca magn: $mg"
                                 magn = lecturasService.buscaMagnIUV(mg)
 //                                println "-----> mag: ${magn[0]} ---> $rgst"
                                 if (magn[0] == null) {
@@ -137,11 +137,15 @@ class VisorJob {
                                 if (rgst[0].toString() =~ /\d.[a-z]./) {
                                     fcha = new SimpleDateFormat("dd-MMM-yyyy HH:mm").parse(rgst[0])
                                 } else {
-                                    fcha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rgst[0])
+                                    if (rgst[0].toString() =~ '/') {
+                                        fcha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(rgst[0])
+                                    } else {
+                                        fcha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rgst[0])
+                                    }
                                 }
 
                                 rgst[0] = fcha
-//                            println "---> Registro: $rgst"
+//                            println "---> Registro: $rgst" //* revisar *//
 
                                 if (magn[0] && estc[0]) {
                                     inserta = lecturasService.cargarLectIUV(rgst, magn, estc)
