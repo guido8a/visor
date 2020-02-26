@@ -678,9 +678,74 @@ class LecturasService {
         return [errores: errores, insertados: insertados, repetidos: repetidos]
     }
 
+    def cargarLectHora(rgst, magn, estc) {
+        def errores = ""
+        def cnta = 0
+        def insertados = 0
+        def repetidos = 0
+        def fcha
+        def cn = dbConnectionService.getConnection()
+        def sql = ""
+        def sqlUp = ""
+        def mg_es = ""
+        def xx_es = [1:51, 6:41, 7:31]
+
+//        println "\n **inicia cargado de datos para mag: $magn, estc: ${estc}.... $rgst"
+        fcha = rgst[0]
+        rgst.removeAt(0)  // elimina la fecha y quedan solo lecturas
+
+        cnta = 0
+        rgst.each() { rg ->
+//            println "--> estación: ${estc[cnta]}, valor: $rg, tipo: ${rg.class}, ${rg.size()}"
+            if (rg.toString().size() > 0) {
+//                println "--> estaciónes: $estc --> ${estc[cnta]}, mag: ${magn[cnta]}, valor: $rg"
+                if((estc[cnta].toInteger() in xx_es.keySet()) && (magn[cnta].toInteger() in [99, 201])) {
+                    mg_es = xx_es[estc[cnta].toInteger()]
+//                    println "cambia estación mag: ${magn[cnta]}, estc: ${estc[cnta]} --> $mg_es"
+                    print "."
+                } else {
+                    mg_es = estc[cnta]
+                }
+                sql = "insert into survey.data (id, magnitude_id, opoint_id, datatype_id, datetime, avg1h) " +
+                        "values(default, ${magn[cnta]}, ${mg_es}, 1, '${fcha.format('yyyy-MM-dd HH:mm')}', ${rg.toDouble()}) " +
+                        "on conflict (magnitude_id, opoint_id, datetime, datatype_id) " +
+                        "do update set avg1h = ${rg.toDouble()}"
+                sqlUp = "update survey.data set avg1m = null where  magnitude_id = ${magn[cnta]} and opoint_id =  ${mg_es} and " +
+                        " datatype_id = 1 and datetime = '${fcha.format('yyyy-MM-dd HH:mm')}'"
+//                println "sql: $sql"
+//                println "sql: $sqlUp"
+
+                try {
+                    cn.execute(sql.toString())
+                    cn.execute(sqlUp.toString())
+//                    println "inserta: $sql"
+//                    println ">> ${cn.updateCount}"
+                    if (cn.updateCount > 0) {
+                        insertados++
+                    }
+                } catch (Exception ex) {
+                    repetidos++
+                    println "Error al insertar $ex"
+                }
+
+            }
+            cnta++
+        }
+
+        return [errores: errores, insertados: insertados, repetidos: repetidos]
+    }
+
     def archivoSubido(arch, cont, rept) {
         def cn = dbConnectionService.getConnection()
         def sql = "insert into survey.file(id, name, loaded, lines, errors) values(default, '${arch}', " +
+                "'${new Date().format('yyyy-MM-dd HH:mm:ss')}', ${cont}, ${rept})"
+//        println "sql: $sql"
+        cn.execute(sql.toString())
+    }
+
+    def archivoHoras(arch, cont, rept) {
+        def cn = dbConnectionService.getConnection()
+        def sql = "insert into survey.file(id, name, loaded, lines, errors) values(default, 'hr_${arch}', " +
                 "'${new Date().format('yyyy-MM-dd HH:mm:ss')}', ${cont}, ${rept})"
 //        println "sql: $sql"
         cn.execute(sql.toString())

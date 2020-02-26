@@ -14,7 +14,7 @@ class VisorJob {
 
         simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 2  /* cada 10 minutos */
 
-//        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 * 60 * 50  /* nunca */
+//        simple startDelay: 1000 * 60*60, repeatInterval: 1000 * 60 * 60 * 50  /* nunca */
 //        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 *30 /* cada 30 minutos */
     }
 
@@ -32,16 +32,35 @@ class VisorJob {
         lecturasService.mueveArch()
 
 //        cargaArchivo('prueba')
+//        cargaArchHora('prueba')
 //        verificar()
 
         println ">>> Inicia cargado de datos de archivos en ../data: ${new Date()}"
         cargaArchivo('prod')
+        cargaArchHora('prod')
         calcular()
         calcularDir()
         activar()
         calcularHoy()
         calcularDirHoy()
+/*
+        def sout = new StringBuilder(), serr = new StringBuilder()
+        def cmnd = '/home/guido/proyectos/visor/hace_bk.sh'
+//        def cmnd = '/home/hace_bk.sh'
+        def cont = 35
+        while(cont > 7) {
+            cont = cont<0? 0 : cont-7
+            println "$cmnd ${cont + 7} ${cont}"
+            def proc = "$cmnd ${cont + 7} ${cont}".execute()
+            proc.consumeProcessOutput(sout, serr)
+            proc.waitForOrKill(20000)
+            sleep(25000)
+        }
+//        println "out> $sout err> $serr"
+        println "proceso de backup de data ejecutado"
+*/
         println "Fin procesos automáticos: ${new Date()}"
+
     }
 
 
@@ -170,6 +189,157 @@ class VisorJob {
                     if (crea_log) {
 //                    println "--- file: ${arch}"
                         lecturasService.archivoSubido(arch, cont, repetidos)
+                    }
+                    println "--> cont: $cont, repetidos: $repetidos"   /** menaje de cargado de archivo **/
+                }
+            }
+//            println "---> archivo: ${ar.toString()} --> cont: $cont, repetidos: $repetidos"
+        }
+
+        /* cambia datos de estaciones IUV y IRADD_UV */
+//        lecturasService.cambiaEstacion(1, 51, '99, 201')
+//        lecturasService.cambiaEstacion(6, 41, '99, 201')
+//        lecturasService.cambiaEstacion(7, 31, '99, 201')
+/*
+        if(problemas) {
+            println "\n${prob_magn} \n${prob_arch}"
+        } else {
+            println "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos --> problemas: $problemas"
+        }
+*/
+        println "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos --> problemas: $problemas"
+
+//        return "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos --> problemas: $problemas"
+    }
+
+    def cargaArchHora(tipo) {
+        def contador = 0
+        def cn = dbConnectionService.getConnection()
+        def estc
+        def rgst = []
+        def cont = 0
+        def repetidos = 0
+        def procesa = 5
+        def crea_log = false
+        def inserta
+        def fcha
+        def magn
+        def sqlp
+        def directorio
+        def prob_magn = "No se encontró la magnitud para"
+        def prob_arch = "PROBLEMAS ${new Date()}"
+        def problemas = 0
+
+        if (grails.util.Environment.getCurrent().name == 'development') {
+//            directorio = '/home/guido/proyectos/visor/dataIUV/2018'
+            directorio = '/home/guido/proyectos/visor/dataHora'
+        } else {
+            directorio = '/home/data/dataHora'
+        }
+
+        if (tipo == 'prueba') { //botón: Cargar datos Minutos
+            procesa = 6
+            crea_log = false
+        } else {
+            procesa = 100000000000
+            crea_log = true
+        }
+
+        def nmbr = ""
+        def arch = ""
+        def mg = ""
+        new File(directorio).traverse(type: groovy.io.FileType.FILES, nameFilter: ~/.*\.csv/) { ar ->
+            nmbr = ar.toString() - directorio
+            arch = nmbr.substring(nmbr.lastIndexOf("/") + 1)
+
+            /*** procesa las 5 primeras líneas del archivo  **/
+            def line
+            def cuenta = 0
+            cont = 0
+            repetidos = 0
+            ar.withReader('UTF-8') { reader ->
+                sqlp = "select count(*) cnta from survey.file where name ilike '${arch}'"
+//                println "... $sqlp"
+                def procesado = cn.rows(sqlp.toString())[0].cnta
+
+                if (!procesado) {
+//                    println "Cargando datos desde: $arch"
+                    print "Cargando archivo: $ar "   /** menaje de cargado de archivo **/
+                    while ((line = reader.readLine()) != null) {
+                        if (cuenta < procesa) {
+//                        println "${line}"
+
+                            if (line.toString() =~ /\d.[a-z]./) {
+                                line = line.replace(",", ".")
+                            }
+
+                            rgst = line.split(';')
+                            rgst = rgst*.trim()
+
+//                        println "***** $rgst   cuenta: $cuenta"
+
+                            if (cuenta == 0) {
+                                estc = lecturasService.datosEstaciones(rgst)
+//                                if(estc && cuenta == 0) cuenta = 1
+//                                println "estaciones: $estc" //* revisar *//
+                            } else if (cuenta == 1) {
+//                                println ">>cuenta: $cuenta, registro: $rgst"
+                                if (rgst[1].toString().contains('Ed')) {
+                                    rgst = rgst*.replaceAll(('EdPAR'), ('PAR'))
+                                }
+//                                println "busca magn: $rgst"
+                                mg = rgst[1..-1]
+//                                println "--mg: $mg"
+                                magn = lecturasService.buscaMagnIUV(mg)
+//                                println "-----> mag: ${magn[0]} ---> $rgst"
+                                if (magn[0] == null) {
+                                    prob_magn += "\n${mg}"
+                                    lecturasService.archivoProblema(arch, mg)
+                                    problemas++
+                                }
+//                                println ">>>> ${nmbr} --> ${arch} --> ${mg} --> magn: $magn"
+
+                            } else if (rgst[0] && rgst[0] != 'FECHA' && rgst[0].toString().toLowerCase() != 'date') {
+//                            println "\n cuenta: $cuenta, fecha: ${rgst[0]}"
+//                                fcha = new Date().parse('yyyy-MM-dd HH:mm:ss', rgst[0])
+                                if (rgst[0].toString() =~ /\d.[a-z]./) {
+                                    fcha = new SimpleDateFormat("dd-MMM-yyyy HH:mm").parse(rgst[0])
+                                } else {
+                                    if (rgst[0].toString() =~ '/') {
+                                        fcha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(rgst[0])
+                                    } else {
+                                        fcha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rgst[0])
+                                    }
+                                }
+
+                                rgst[0] = fcha
+//                            println "---> Registro: $rgst" //* revisar *//
+
+                                if (magn[0] && estc[0]) {
+//                                    inserta = lecturasService.cargarLectIUV(rgst, magn, estc)
+                                    inserta = lecturasService.cargarLectHora(rgst, magn, estc)
+                                    cont += inserta.insertados
+                                    repetidos += inserta.repetidos
+                                } else {
+                                    prob_arch += "\n${ar.toString()}"
+                                    problemas++
+                                }
+                            }
+
+//                            if(rgst.size() > 0 && rgst[1]) cuenta++  /* se cuentan sólo si hay valores */
+                            if (cuenta > 3 && rgst[1] != 0) {  /* se cuentan sólo si hay valores */
+                                cuenta++
+                            } else {
+                                cuenta++
+                            }
+
+                        }
+                    }
+//                if(true) {
+                    if (crea_log) {
+//                    println "--- file: ${arch}"
+//                        lecturasService.archivoSubido(arch, cont, repetidos)
+                        lecturasService.archivoHoras(arch, cont, repetidos)
                     }
                     println "--> cont: $cont, repetidos: $repetidos"   /** menaje de cargado de archivo **/
                 }

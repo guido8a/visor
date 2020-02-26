@@ -114,7 +114,7 @@ environments:
     development:
         dataSource:
             dbCreate: update
-            url: jdbc:postgresql://127.0.0.1:5432/visorprod
+            url: jdbc:postgresql://127.0.0.1:5432/visor_prod
 #            url: jdbc:postgresql://50.116.33.232:5432/visorprod
             username: 'aqremmaq'
             password: 'remmaq'
@@ -124,7 +124,7 @@ environments:
         dataSources:
             visor:
                 dbCreate: update
-                url: jdbc:postgresql://127.0.0.1:5432/visorprod
+                url: jdbc:postgresql://127.0.0.1:5432/visor_prod
               #                url: jdbc:postgresql://50.116.33.232:5432/visorprod
                 username: postgres
                 password: 'postgres'
@@ -136,7 +136,7 @@ environments:
     test:
         dataSource:
             dbCreate: update
-            url: jdbc:postgresql://127.0.0.1:5432/visorprod
+            url: jdbc:postgresql://127.0.0.1:5432/visor_prod
     production:
         dataSource:
             dbCreate: none
