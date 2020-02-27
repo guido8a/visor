@@ -12,10 +12,10 @@ class VisorJob {
 
     static triggers = {
 
-        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 2  /* cada 10 minutos */
+//        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 2  /* cada 10 minutos */
 
 //        simple startDelay: 1000 * 60*60, repeatInterval: 1000 * 60 * 60 * 50  /* nunca */
-//        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 *30 /* cada 30 minutos */
+        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 *30 /* cada 30 minutos */
     }
 
 
@@ -29,7 +29,7 @@ class VisorJob {
      **/
     void execute() {
         println ">>> Ejecuta procesos automáticos: ${new Date()}"
-        lecturasService.mueveArch()
+//        lecturasService.mueveArch()
 
 //        cargaArchivo('prueba')
 //        cargaArchHora('prueba')
@@ -150,7 +150,7 @@ class VisorJob {
                                 }
 //                                println ">>>> ${nmbr} --> ${arch} --> ${mg} --> magn: $magn"
 
-                            } else if (rgst[0] && rgst[0] != 'FECHA' && rgst[0].toString().toLowerCase() != 'date') {
+                            } else if (rgst[0] && rgst[0] != 'FECHA' && rgst[0].toString().toLowerCase() != 'date' && rgst[0]?.size() > 8) {
 //                            println "\n cuenta: $cuenta, fecha: ${rgst[0]}"
 //                                fcha = new Date().parse('yyyy-MM-dd HH:mm:ss', rgst[0])
                                 if (rgst[0].toString() =~ /\d.[a-z]./) {
@@ -258,7 +258,7 @@ class VisorJob {
             cont = 0
             repetidos = 0
             ar.withReader('UTF-8') { reader ->
-                sqlp = "select count(*) cnta from survey.file where name ilike '${arch}'"
+                sqlp = "select count(*) cnta from survey.file where name ilike 'hr_${arch}'"
 //                println "... $sqlp"
                 def procesado = cn.rows(sqlp.toString())[0].cnta
 
