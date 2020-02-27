@@ -12,10 +12,10 @@ class VisorJob {
 
     static triggers = {
 
-//        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 2  /* cada 10 minutos */
+        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 4  /* cada 10 minutos */
 
 //        simple startDelay: 1000 * 60*60, repeatInterval: 1000 * 60 * 60 * 50  /* nunca */
-        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 *30 /* cada 30 minutos */
+//        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 *30 /* cada 30 minutos */
     }
 
 
@@ -29,7 +29,7 @@ class VisorJob {
      **/
     void execute() {
         println ">>> Ejecuta procesos automáticos: ${new Date()}"
-//        lecturasService.mueveArch()
+        lecturasService.mueveArch()
 
 //        cargaArchivo('prueba')
 //        cargaArchHora('prueba')
