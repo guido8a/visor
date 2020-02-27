@@ -150,23 +150,29 @@ class VisorJob {
                                 }
 //                                println ">>>> ${nmbr} --> ${arch} --> ${mg} --> magn: $magn"
 
-                            } else if (rgst[0] && rgst[0] != 'FECHA' && rgst[0].toString().toLowerCase() != 'date' && rgst[0]?.size() > 8) {
+//                            } else if (rgst[0] && rgst[0] != 'FECHA' && rgst[0].toString().toLowerCase() != 'date' && rgst[0]?.size() > 8) {
+                            } else if (rgst[0] && rgst[0] != 'FECHA' && rgst[0].toString().toLowerCase() != 'date') {
 //                            println "\n cuenta: $cuenta, fecha: ${rgst[0]}"
 //                                fcha = new Date().parse('yyyy-MM-dd HH:mm:ss', rgst[0])
-                                if (rgst[0].toString() =~ /\d.[a-z]./) {
-                                    fcha = new SimpleDateFormat("dd-MMM-yyyy HH:mm").parse(rgst[0])
-                                } else {
-                                    if (rgst[0].toString() =~ '/') {
-                                        fcha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(rgst[0])
+                                fcha = null
+                                try {
+                                    if (rgst[0].toString() =~ /\d.[a-z]./) {
+                                        fcha = new SimpleDateFormat("dd-MMM-yyyy HH:mm").parse(rgst[0])
                                     } else {
-                                        fcha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rgst[0])
+                                        if (rgst[0].toString() =~ '/') {
+                                            fcha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(rgst[0])
+                                        } else {
+                                            fcha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rgst[0])
+                                        }
                                     }
-                                }
 
-                                rgst[0] = fcha
+                                    rgst[0] = fcha
+                                } catch(Exception er) {
+                                    println "error en fecha del regitro ${rgst[0]}, arch: $ar, err: $er"
+                                }
 //                            println "---> Registro: $rgst" //* revisar *//
 
-                                if (magn[0] && estc[0]) {
+                                if (magn[0] && estc[0] && fcha) {
                                     inserta = lecturasService.cargarLectIUV(rgst, magn, estc)
                                     cont += inserta.insertados
                                     repetidos += inserta.repetidos
