@@ -38,8 +38,9 @@ class VisorJob {
 //        data_nasa('prueba')
 // ** fin ** pruebas **********
 
-//        println ">>> Inicia cargado de datos de archivos en ../data: ${new Date()}"
-        data_nasa('prod')
+        println ">>> Inicia cargado de datos de archivos en ../data: ${new Date()}"
+        data_nasa('prod')  // carga datos de forecasting NASA
+
         cargaArchivo('prod')
         cargaArchHora('prod')
         calcular()
@@ -47,7 +48,7 @@ class VisorJob {
         activar()
         calcularHoy()
         calcularDirHoy()
-//
+
 
 /*
         def sout = new StringBuilder(), serr = new StringBuilder()
@@ -731,13 +732,23 @@ class VisorJob {
         def mg = ""
         def arch = new File("${directorio}/data_nasa_hoy.csv")
 
+        def sql = "select count(*) cnta from survey.file_forecast where date_file= " +
+                "'${new Date().format('yyyy-MM-dd')}'"
+//        println "sql: $sql"
+        def procesado = cn.rows(sql.toString())[0].cnta
+
+        if(procesado) {
+            println "ya se ha procesado el archivo de la nasa"
+            return
+        }
+
         //nuevo
         def line
         def cuenta = 0
         cont = 0
         repetidos = 0
         arch.withReader('UTF-8') { reader ->
-            print "Cargando archivo: $arch "
+            print "Cargando archivo NASA: $arch "
             while ((line = reader.readLine()) != null) {
                 if (cuenta < procesa) {
 //                    println "${line}"
