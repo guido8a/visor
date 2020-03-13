@@ -12,10 +12,10 @@ class VisorJob {
 
     static triggers = {
 
-        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 4  /* cada 10 minutos */
+        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 2  /* cada 2 horas */
 //
 //        simple startDelay: 1000 * 60*60, repeatInterval: 1000 * 60 * 60 * 50  /* nunca */
-//        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 * 30 /* cada 30 minutos */
+//        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 * 30 /* a los 3 segundos -- repite cada 30 min */
     }
 
 
