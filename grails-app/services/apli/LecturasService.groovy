@@ -860,7 +860,7 @@ class LecturasService {
         def cn = dbConnectionService.getConnection()
         def sql = "insert into survey.file_forecast(id, date_file, lines, errors) values(default, " +
                 "'${new Date().format('yyyy-MM-dd')}', ${cont}, ${rept})"
-        println "sql: $sql"
+//        println "sql: $sql"
         try {
             cn.execute(sql.toString())
         } catch (Exception er) {
