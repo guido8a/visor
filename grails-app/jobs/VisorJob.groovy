@@ -13,9 +13,9 @@ class VisorJob {
     static triggers = {
 
         simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 4  /* cada 10 minutos */
-
+//
 //        simple startDelay: 1000 * 60*60, repeatInterval: 1000 * 60 * 60 * 50  /* nunca */
-//        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 *30 /* cada 30 minutos */
+//        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 * 30 /* cada 30 minutos */
     }
 
 
@@ -29,13 +29,17 @@ class VisorJob {
      **/
     void execute() {
         println ">>> Ejecuta procesos automáticos: ${new Date()}"
-        lecturasService.mueveArch()
+//        lecturasService.mueveArch()
 
+// ********* pruebas **********
 //        cargaArchivo('prueba')
 //        cargaArchHora('prueba')
 //        verificar()
+//        data_nasa('prueba')
+// ** fin ** pruebas **********
 
-        println ">>> Inicia cargado de datos de archivos en ../data: ${new Date()}"
+//        println ">>> Inicia cargado de datos de archivos en ../data: ${new Date()}"
+        data_nasa('prod')
         cargaArchivo('prod')
         cargaArchHora('prod')
         calcular()
@@ -43,6 +47,8 @@ class VisorJob {
         activar()
         calcularHoy()
         calcularDirHoy()
+//
+
 /*
         def sout = new StringBuilder(), serr = new StringBuilder()
         def cmnd = '/home/guido/proyectos/visor/hace_bk.sh'
@@ -167,7 +173,7 @@ class VisorJob {
                                     }
 
                                     rgst[0] = fcha
-                                } catch(Exception er) {
+                                } catch (Exception er) {
                                     println "error en fecha del regitro ${rgst[0]}, arch: $ar, err: $er"
                                 }
 //                            println "---> Registro: $rgst" //* revisar *//
@@ -679,7 +685,7 @@ class VisorJob {
         magn = cn.rows(sql.toString())
 //        println "....1"
 
-        magn.each {mg ->
+        magn.each { mg ->
             sql = "select * from survey.verifica_data(${mg.id});"
             println "mg--> ${mg.id}"
             cn.eachRow(sql.toString()) { d ->
@@ -687,6 +693,106 @@ class VisorJob {
 
             }
         }
+    }
+
+
+    def data_nasa(tipo) {
+        def contador = 0
+        def cn = dbConnectionService.getConnection()
+        def rgst = []
+        def data = []
+        def cont = 0
+        def repetidos = 0
+        def procesa = 5
+        def crea_log = false
+        def inserta
+        def fcha
+        def magn
+        def sqlp
+        def directorio
+        def problemas = 0
+        def dire = 0.0, vlcd = 0.0, cx = 0.0, cy = 0.0
+
+        if (grails.util.Environment.getCurrent().name == 'development') {
+//            directorio = '/home/guido/proyectos/visor/dataIUV/2018'
+            directorio = '/home/guido/proyectos/visor/nasa'
+        } else {
+            directorio = '/home/data/nasa'
+        }
+
+        if (tipo == 'prueba') { //botón: Cargar datos Minutos
+            procesa = 6
+            crea_log = false
+        } else {
+            procesa = 100000000000
+            crea_log = true
+        }
+
+        def mg = ""
+        def arch = new File("${directorio}/data_nasa_hoy.csv")
+
+        //nuevo
+        def line
+        def cuenta = 0
+        cont = 0
+        repetidos = 0
+        arch.withReader('UTF-8') { reader ->
+            print "Cargando archivo: $arch "
+            while ((line = reader.readLine()) != null) {
+                if (cuenta < procesa) {
+//                    println "${line}"
+
+                    rgst = line.split(',')
+                    rgst = rgst*.trim()
+
+//                    println "***** $rgst   cuenta: $cuenta"
+
+                    if (cuenta == 0) {
+                        mg = rgst[5..-1]
+//                        println "--mg: $mg"
+                        magn = lecturasService.magnitudNasa(mg)
+//                        println "-----> mag: ${magn}"
+
+                    } else if (rgst[0]) {
+//                            println "\n cuenta: $cuenta, fecha: ${rgst[0]}"
+                        fcha = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX").parse(rgst[0])
+//                        println "fecha: ${fcha.format('yyyy-MM-dd hh:mm')}"
+
+                        rgst[0] = fcha
+
+                        cx = rgst[8].toDouble()
+                        cy = rgst[9].toDouble()
+//                        println "cx: $cx, cy: $cy, --> ${Math.pow(cx, 2)}"
+                        vlcd = Math.sqrt(Math.pow(cx, 2) + Math.pow(cy, 2))
+                        dire = (Math.toDegrees(Math.atan2(cy, cx)) + 360) % 360
+//                        println "${rgst[8].toDouble()}, ${rgst[9].toDouble()} --> $vlcd  -- $dire"
+
+                        data = [rgst[0], rgst[2], rgst[5], rgst[6], rgst[7], vlcd, dire, rgst[11], rgst[13], rgst[15]]
+
+//                        println "---> Registro: $data" //* revisar *//
+
+                        if (data[0]) {
+                            inserta = lecturasService.cargaForcast(data, magn)
+                            cont += inserta.insertados
+                            repetidos += inserta.repetidos
+                        } else {
+                            prob_arch += "\n${ar.toString()}"
+                            problemas++
+                        }
+
+                    }
+                    cuenta++
+
+//                    println " ........... fin registro ......"
+                }
+            }
+            if (crea_log) {
+                println "crea log de file: ${arch}"
+                lecturasService.archivoNasa(arch, cont, repetidos)
+            }
+            println "--> cont: $cont, repetidos: $repetidos"   /** menaje de cargado de archivo **/
+        }
+        println "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos --> problemas: $problemas"
     }
 
 

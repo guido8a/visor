@@ -772,6 +772,101 @@ class LecturasService {
         cn.execute(sql.toString())
     }
 
+    /**
+     * Busca los ID de las estaciones NASA
+     * **/
+    def estacionNasa(rgst) {
+        def cn = dbConnectionService.getConnection()
+        def sql = "select id from survey.opoint where pname_nasa ilike '${rgst}'"
+        def id = cn.rows(sql.toString())[0]?.id
+        return id
+    }
+
+    /**
+     * Busca los ID de las magnitudes NASA
+     * **/
+    def magnitudNasa(ar) {
+        def cn = dbConnectionService.getConnection()
+        def mgnt = []
+        def sql = ""
+        ar.each() {m ->
+            sql = "select id, data_type from survey.magnitude where pname_nasa ilike '${m}' limit 1"
+            if(m == 'Eastward_wind_[ms-1]') {
+                mgnt.add("81_2")
+            }
+            if(m == 'Northward_wind_[ms-1]') {
+                mgnt.add("82_2")
+            }
+            cn.eachRow(sql.toString()) {d ->
+                mgnt.add("${d.id}_${d.data_type}")
+            }
+//            print "..$mgnt"
+        }
+        return mgnt
+    }
+
+//    inserta = lecturasService.cargaForcast(data, magn)
+    def cargaForcast(rgst, magn) {
+        def errores = ""
+        def cnta = 0
+        def insertados = 0
+        def repetidos = 0
+        def fcha
+        def cn = dbConnectionService.getConnection()
+        def sql = ""
+        def estc = estacionNasa(rgst[1])
+        def data, mg, tp
+
+//        println "\n **inicia cargado de datos para mag: $magn, estc: ${estc}.... $rgst"
+        fcha = rgst[0]
+        rgst.removeAt(0)  // elimina la fecha
+        rgst.removeAt(0)  // elimina estacion
+
+        cnta = 0
+        rgst.each() { rg ->
+            data = magn[cnta].split('_')
+            mg = data[0]
+            tp = data[1]
+//            println "--> estación: ${estc}, valor: $rg, magn: ${mg}, tipo: ${tp}"
+            if (rg.toString().size() > 0) {
+//                println "--> estaciónes: $estc --> ${estc[cnta]}, mag: ${magn[cnta]}, valor: $rg"
+                sql = "insert into survey.forecasting (id, datetime, magnitude_id, opoint_id, datatype_id, avg1h) " +
+                        "values(default, '${fcha.format('yyyy-MM-dd HH:mm')}', ${mg}, ${estc}, ${tp}, ${rg.toDouble()}) " +
+                        "on conflict (datetime, opoint_id, magnitude_id, datatype_id) " +
+                        "do update set avg1h = ${rg.toDouble()}"
+//                println "sql: $sql"
+
+                try {
+                    cn.execute(sql.toString())
+//                    println "inserta: $sql"
+//                    println ">> ${cn.updateCount}"
+                    if (cn.updateCount > 0) {
+                        insertados++
+                    }
+                } catch (Exception ex) {
+                    repetidos++
+                    println "Error al insertar $ex"
+                }
+
+            }
+            cnta++
+        }
+
+        return [errores: errores, insertados: insertados, repetidos: repetidos]
+    }
+
+    //lecturasService.archivoNasa(arch, cont, repetidos)
+    def archivoNasa(arch, cont, rept) {
+        def cn = dbConnectionService.getConnection()
+        def sql = "insert into survey.file_forecast(id, date_file, lines, errors) values(default, " +
+                "'${new Date().format('yyyy-MM-dd')}', ${cont}, ${rept})"
+        println "sql: $sql"
+        try {
+            cn.execute(sql.toString())
+        } catch (Exception er) {
+            println "error al regsitrar el archivo de hoy, err: $er"
+        }
+    }
 
 
 }
