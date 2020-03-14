@@ -3,7 +3,9 @@ package apli
 import grails.gorm.transactions.Transactional
 
 import java.nio.file.Files
+import java.nio.file.Path
 import java.nio.file.Paths
+import java.nio.file.FileSystems
 import java.nio.file.StandardCopyOption
 import java.text.SimpleDateFormat
 
@@ -88,8 +90,6 @@ class LecturasService {
 
         return "Se han movido ${cn_data} archivos a ${dir_data} y ${cn_iuv} a: ${dir_iuv}"
     }
-
-
 
 
     def leeCSV(tipo) {
@@ -865,6 +865,18 @@ class LecturasService {
             cn.execute(sql.toString())
         } catch (Exception er) {
             println "error al regsitrar el archivo de hoy, err: $er"
+        }
+    }
+
+    /**
+     * mueve archvio origen destino **/
+    def mueveArch(orgn, dstn) {
+        Path origenPath = FileSystems.getDefault().getPath(orgn);
+        Path destinoPath = FileSystems.getDefault().getPath(dstn);
+        try {
+            Files.move(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            System.err.println(e);
         }
     }
 

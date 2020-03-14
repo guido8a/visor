@@ -800,6 +800,7 @@ class VisorJob {
             if (crea_log) {
                 println "crea log de file: ${arch}"
                 lecturasService.archivoNasa(arch, cont, repetidos)
+                lecturasService.mueveArch("${directorio}/data_nasa_hoy.csv", "${directorio}/data_nasa_subido.csv")
             }
             println "--> cont: $cont, repetidos: $repetidos"   /** menaje de cargado de archivo **/
         }
