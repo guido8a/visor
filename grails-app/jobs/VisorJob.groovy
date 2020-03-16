@@ -12,7 +12,7 @@ class VisorJob {
 
     static triggers = {
 
-        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 2  /* cada 2 horas */
+        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 4  /* cada 2 horas */
 //
 //        simple startDelay: 1000 * 60*60, repeatInterval: 1000 * 60 * 60 * 50  /* nunca */
 //        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 * 30 /* a los 3 segundos -- repite cada 30 min */
@@ -399,7 +399,7 @@ class VisorJob {
         magn = cn.rows(sql.toString())
 //        println "....1"
 
-        proceso = ['10 minutes', '1 hours', '8 hours', '24 hours', '72 hours']
+        proceso = ['10 minutes', '1 hours', '3 hours', '8 hours', '24 hours', '72 hours']
         proceso.each { prcs ->
             magn.each { mg ->
 //                sql = "select distinct opoint_id id from partitions.data${mg.id} where avg1m is not null order by 1"
@@ -454,7 +454,7 @@ class VisorJob {
                                     salida = dt.promedios
                                 }
 
-                                println " procesa ${prcs}: magnitud: $mg con estc: $es --> $salida"
+                                println " procesa ${prcs}: magnitud: ${mg.id} con estc: ${es.id} --> $salida"
                                 cnta++
                                 lecturasService.procesoHecho(mg.id, es.id, prcs, salida, frmtFcha.format(fcha), frmtFcha.format(fchaFin), salida)
 //                                salidaTotal += salidaTotal ? "\n${salida}" : salida
@@ -495,7 +495,7 @@ class VisorJob {
         def fcha
         def fchaFin
 
-        proceso = ['10 minutes', '1 hours', '8 hours', '24 hours', '72 hours']
+        proceso = ['10 minutes', '1 hours', '3 hours', '8 hours', '24 hours', '72 hours']
         proceso.each { prcs ->
 
             sql = "select distinct opoint_id id from survey.data where magnitude_id = 82 and " +
@@ -536,7 +536,7 @@ class VisorJob {
                                 salida = dt.promedios_dir
                             }
 
-                            println "procesa dirección viento ${prcs} con estc: $es --> $salida"
+                            println "procesa dirección viento ${prcs} con estc: ${es.id} --> $salida"
                             cnta++
                             lecturasService.procesoHecho(82, es.id, prcs, salida, fcha.format('yyyy-MM-dd'), fchaFin.format('yyyy-MM-dd'), salida)
 //                            salidaTotal += salidaTotal ? "\n${salida}" : salida
@@ -729,9 +729,6 @@ class VisorJob {
             crea_log = true
         }
 
-        def mg = ""
-        def arch = new File("${directorio}/data_nasa_hoy.csv")
-
         def sql = "select count(*) cnta from survey.file_forecast where date_file= " +
                 "'${new Date().format('yyyy-MM-dd')}'"
 //        println "sql: $sql"
@@ -739,6 +736,14 @@ class VisorJob {
 
         if(procesado) {
             println "ya se ha procesado el archivo de la nasa"
+            return
+        }
+
+        def mg = ""
+        def arch = new File("${directorio}/data_nasa_hoy.csv")
+
+        if(!arch.exists()) {
+            println "no existe el archivo data_nasa_hoy.csv"
             return
         }
 
