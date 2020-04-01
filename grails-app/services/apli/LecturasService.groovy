@@ -32,7 +32,7 @@ class LecturasService {
 
         if(grails.util.Environment.getCurrent().name == 'development') {
             dir_data = '/home/guido/proyectos/visor/data/'
-            dir_iuv = '/home/guido/proyectos/visor/dataIUV/'
+//            dir_iuv = '/home/guido/proyectos/visor/dataIUV/'
             dir_arch = '/home/guido/proyectos/visor/remaq/'
         } else {
             dir_data = '/home/data/data/'
@@ -599,12 +599,20 @@ class LecturasService {
     }
 
 
-
-
     def procesoHecho(magn, estc, proc, txto, fcds, fchs, salida) {
         def cn = dbConnectionService.getConnection()
         def frmtFcha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         def sql = "insert into survey.process(id, magnitude_id, opoint_id, name, from_date, to_date, " +
+                "datetime, result) values(default, '${magn}', '${estc}', '${proc}', '${fcds}', '${fchs}'," +
+                "'${frmtFcha.format(new Date())}', '${salida}')"
+//        println "...---> $sql"
+        cn.execute(sql.toString())
+    }
+
+    def procesoFore(magn, estc, proc, txto, fcds, fchs, salida) {
+        def cn = dbConnectionService.getConnection()
+        def frmtFcha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        def sql = "insert into survey.process_fore(id, magnitude_id, opoint_id, name, from_date, to_date, " +
                 "datetime, result) values(default, '${magn}', '${estc}', '${proc}', '${fcds}', '${fchs}'," +
                 "'${frmtFcha.format(new Date())}', '${salida}')"
 //        println "...---> $sql"

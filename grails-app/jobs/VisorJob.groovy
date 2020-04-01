@@ -12,7 +12,7 @@ class VisorJob {
 
     static triggers = {
 
-        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 4  /* cada 2 horas */
+        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 2  /* cada 2 horas */
 //
 //        simple startDelay: 1000 * 60*60, repeatInterval: 1000 * 60 * 60 * 50  /* nunca */
 //        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 * 30 /* a los 3 segundos -- repite cada 30 min */
@@ -49,6 +49,10 @@ class VisorJob {
         calcularHoy()
         calcularDirHoy()
 
+        calc_fore()
+        calc_fore_dir()
+        calc_fore_hoy()
+        calc_dir_fore_hoy()
 
 /*
         def sout = new StringBuilder(), serr = new StringBuilder()
@@ -478,6 +482,95 @@ class VisorJob {
     }
 
 
+    def calc_fore() {
+        println "calcular forecasting-->"
+        def cn = dbConnectionService.getConnection()
+        def sql = ""
+        def sql1 = ""
+        def sqlp = ""
+        def magn = []
+        def estc = []
+        def salida = ""
+        def cnta = 0
+        def desde
+        def hasta
+        def proceso
+        def fcha
+        def fchaFin
+        def frmtFcha = new SimpleDateFormat("yyyy-MM-dd")
+
+        sql = "select distinct magnitude_id id from survey.forecasting where magnitude_id != 82 order by 1"
+        magn = cn.rows(sql.toString())
+//        println "....1"
+
+        proceso = ['3 hours', '8 hours', '24 hours', '72 hours']
+        proceso.each { prcs ->
+            magn.each { mg ->
+                sql = "select distinct opoint_id id from survey.forecasting where magnitude_id = ${mg.id} order by 1"
+                println "mg--> ${mg.id}"
+                estc = cn.rows(sql.toString())
+//            println "....2 estc: ${estc}"
+
+                estc.each { es ->
+                    sql1 = "select min(datetime)::date fcin, max(datetime)::date fcfn from survey.forecasting " +
+                            "where magnitude_id = ${mg.id} and opoint_id = ${es.id} and avg1h is not null"
+//                    print "mg--> ${mg.id}: $sql1"
+                    cn.eachRow(sql1.toString()) { d ->
+                        if (d.fcin && d.fcfn) {
+                            desde = new SimpleDateFormat("yyyy-MM-dd").parse("${d.fcin}")
+                            hasta = new SimpleDateFormat("yyyy-MM-dd").parse("${d.fcfn}")
+//                            println "desde: ${desde}"
+                        } else {
+                            desde = new Date()
+                            hasta = desde
+                        }
+                    }
+//                    println "desde: ${desde}, hasta: ${hasta}"
+
+                    fcha = desde
+                    fchaFin = new SimpleDateFormat("dd-MM-yyyy").parse("31-12-${fcha.getYear() + 1900}")
+//                    println "procesa desde ${desde} hasta: ${fchaFin}"
+                    while (fcha < hasta) {
+                        use(groovy.time.TimeCategory) {
+//                            println "---> ${fcha} hasta ${fchaFin}"
+                            sqlp = "select count(*) cnta from survey.process_fore " +
+                                    "where '${frmtFcha.format(fcha)}' between from_date and to_date and " +
+                                    "'${frmtFcha.format(fchaFin)}' between from_date and to_date and " +
+                                    "magnitude_id = ${mg.id} and opoint_id = ${es.id} and name ilike '${prcs}'"
+//                            println "... $sqlp"
+                            def procesado = cn.rows(sqlp.toString())[0].cnta
+                            if (!procesado) {
+//                                print "*** ${prcs} mg--> ${mg.id}, estc: ${es.id} '${fcha.format('yyyy-MM-dd')}' a '${fchaFin.format('yyyy-MM-dd')}'"
+                                sql = "select * from survey.promedios_fore(${mg.id}, ${es.id}, '${prcs}', " +
+                                        "'${frmtFcha.format(fcha)}', '${frmtFcha.format(fchaFin)}')"
+//                                println "sql--> $sql"
+                                cn.eachRow(sql.toString()) { dt ->
+                                    salida = dt.promedios_fore
+                                }
+
+                                println " procesa forecasting ${prcs}: magnitud: ${mg.id} con estc: ${es.id} --> $salida"
+                                cnta++
+                                lecturasService.procesoFore(mg.id, es.id, prcs, salida, frmtFcha.format(fcha), frmtFcha.format(fchaFin), salida)
+//                                salidaTotal += salidaTotal ? "\n${salida}" : salida
+                            }
+
+                            fcha = fchaFin + 1.day
+                            if (fchaFin + 1.year > hasta) {
+                                fchaFin = hasta
+                            } else {
+                                fchaFin = fchaFin + 1.year
+                            }
+                        }
+                    }
+
+                }
+            }
+
+        }
+//        println "Porcesado: ${salidaTotal}"
+//        return "Porcesado: ${salidaTotal}"
+    }
+
     def calcularDir() {
         println "calcularDir job --"
         def cn = dbConnectionService.getConnection()
@@ -559,6 +652,85 @@ class VisorJob {
 //        return "Porcesado: ${salidaTotal}"
     }
 
+
+    def calc_fore_dir() {
+        println "calc_fore_dir --"
+        def cn = dbConnectionService.getConnection()
+        def sql = ""
+        def sql1 = ""
+        def sqlp = ""
+        def magn = []
+        def estc = []
+        def salida = ""
+        def cnta = 0
+        def desde
+        def hasta
+        def proceso
+        def fcha
+        def fchaFin
+
+        proceso = ['3 hours', '8 hours', '24 hours', '72 hours']
+        proceso.each { prcs ->
+
+            sql = "select distinct opoint_id id from survey.forecasting where magnitude_id = 82 and " +
+                  "avg1h is not null order by 1"
+//            println "ppp: $sql"
+            estc = cn.rows(sql.toString())
+//            println "....2 estc: ${estc}"
+
+            estc.each { es ->
+                sql1 = "select min(datetime)::date fcin, max(datetime)::date fcfn from survey.forecasting " +
+                        "where magnitude_id = 82 and opoint_id = ${es.id} and avg1h is not null"
+//                    print "mg--> ${mg.id}: $sql1"
+                cn.eachRow(sql1.toString()) { d ->
+                    desde = new Date().parse("yyyy-MM-dd", "${d.fcin}")
+                    hasta = new Date().parse("yyyy-MM-dd", "${d.fcfn}")
+                }
+//                    println "desde: ${desde}, hasta: ${hasta}"
+
+                fcha = desde
+                fchaFin = new Date().parse("dd-MM-yyyy", "31-12-${fcha.format('yyyy')}")
+//                    println "procesa desde ${desde} hasta: ${hasta}"
+                while (fcha < hasta) {
+                    use(groovy.time.TimeCategory) {
+//                            println "---> ${fcha} hasta ${fchaFin}"
+                        sqlp = "select count(*) cnta from survey.process_fore " +
+                                "where '${fcha.format('yyyy-MM-dd')}' between from_date and to_date and " +
+                                "'${fchaFin.format('yyyy-MM-dd')}' between from_date and to_date and " +
+                                "magnitude_id = 82 and opoint_id = ${es.id} and name ilike '${prcs}'"
+//                            println "... $sqlp"
+                        def procesado = cn.rows(sqlp.toString())[0].cnta
+                        if (!procesado) {
+                            print "*** Dir: ${prcs} estc: ${es.id} '${fcha.format('yyyy-MM-dd')}' a '${fchaFin.format('yyyy-MM-dd')}'"
+                            sql = "select * from survey.prom_dir_fore(${es.id}, '${prcs}', " +
+                                    "'${fcha.format('yyyy-MM-dd')}', '${fchaFin.format('yyyy-MM-dd')}')"
+//                            println "sql--> $sql"
+                            cn.eachRow(sql.toString()) { dt ->
+                                salida = dt.prom_dir_fore
+                            }
+
+                            println "procesa dirección viento forecasting ${prcs} con estc: ${es.id} --> $salida"
+                            cnta++
+                            lecturasService.procesoFore(82, es.id, prcs, salida, fcha.format('yyyy-MM-dd'), fchaFin.format('yyyy-MM-dd'), salida)
+//                            salidaTotal += salidaTotal ? "\n${salida}" : salida
+                        }
+
+                        fcha = fchaFin + 1.day
+                        if (fchaFin + 1.year > hasta) {
+                            fchaFin = hasta
+                        } else {
+                            fchaFin = fchaFin + 1.year
+                        }
+                    }
+                }
+
+            }
+
+        }
+    }
+
+
+
     def activar() {
         println "activar -->"
         def cn = dbConnectionService.getConnection()
@@ -618,7 +790,7 @@ class VisorJob {
         def magn = []
         def estc = []
         def salida = ""
-        def proceso = ['10 minutes', '1 hours', '8 hours', '24 hours', '72 hours']
+        def proceso = ['10 minutes', '1 hours', '3 hours', '8 hours', '24 hours', '72 hours']
         def fchaFin = new Date()
         def fcha = fchaFin - 5
 
@@ -644,6 +816,38 @@ class VisorJob {
         }
     }
 
+    def calc_fore_hoy() {
+        println "calc_fore_hoy job -->"
+        def cn = dbConnectionService.getConnection()
+        def sql = ""
+        def magn = []
+        def estc = []
+        def salida = ""
+        def proceso = ['3 hours', '8 hours', '24 hours', '72 hours']
+        def fchaFin = new Date()
+        def fcha = fchaFin - 5
+
+        sql = "select distinct magnitude_id id from survey.forecasting where magnitude_id != 82 order by 1"
+        magn = cn.rows(sql.toString())
+        proceso.each { prcs ->
+            magn.each { mg ->
+                print " procesa ${prcs}: magnitud: ${mg.id} "
+
+                sql = "select distinct opoint_id id from survey.forecasting where magnitude_id = ${mg.id} order by 1"
+                estc = cn.rows(sql.toString())
+                estc.each { es ->
+                    sql = "select * from survey.promedios_fore(${mg.id}, ${es.id}, '${prcs}', " +
+                            "'${fcha.format('yyyy-MM-dd')}', '${fchaFin.format('yyyy-MM-dd')}')"
+//                    println "sql--> $sql"
+                    cn.eachRow(sql.toString()) { dt ->
+                        salida = dt.promedios_fore
+                    }
+                    print "..${es.id}"
+                }
+                println ""
+            }
+        }
+    }
 
     def calcularDirHoy() {
         println "calcula dir hoy job -->"
@@ -652,7 +856,7 @@ class VisorJob {
         def magn = []
         def estc = []
         def salida = ""
-        def proceso = ['10 minutes', '1 hours', '8 hours', '24 hours', '72 hours']
+        def proceso = ['10 minutes', '1 hours', '3 hours', '8 hours', '24 hours', '72 hours']
         def fchaFin = new Date()
         def fcha = fchaFin - 5
 
@@ -668,6 +872,36 @@ class VisorJob {
                         "'${fcha.format('yyyy-MM-dd')}', '${fchaFin.format('yyyy-MM-dd')}')"
                 cn.eachRow(sql.toString()) { dt ->
                     salida = dt.promedios_dir
+                }
+                print "..${es.id}"
+            }
+            println ""
+        }
+    }
+
+    def calc_dir_fore_hoy() {
+        println "calc_dir_fore_hoy job -->"
+        def cn = dbConnectionService.getConnection()
+        def sql = ""
+        def magn = []
+        def estc = []
+        def salida = ""
+        def proceso = ['3 hours', '8 hours', '24 hours', '72 hours']
+        def fchaFin = new Date()
+        def fcha = fchaFin - 5
+
+        sql = "select distinct opoint_id id from survey.forecasting where magnitude_id = 82 and " +
+                  "avg1h is not null order by 1"
+
+        estc = cn.rows(sql.toString())
+//            println "....2 estc: ${estc}"
+        proceso.each { prcs ->
+            print " procesa dirrección ${prcs}: dirección del viento "
+            estc.each { es ->
+                sql = "select * from survey.prom_dir_fore(${es.id}, '${prcs}', " +
+                        "'${fcha.format('yyyy-MM-dd')}', '${fchaFin.format('yyyy-MM-dd')}')"
+                cn.eachRow(sql.toString()) { dt ->
+                    salida = dt.prom_dir_fore
                 }
                 print "..${es.id}"
             }
