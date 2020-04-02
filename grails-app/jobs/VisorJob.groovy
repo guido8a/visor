@@ -48,11 +48,12 @@ class VisorJob {
         activar()
         calcularHoy()
         calcularDirHoy()
-
+//
         calc_fore()
         calc_fore_dir()
         calc_fore_hoy()
         calc_dir_fore_hoy()
+        verifica_tp09()
 
 /*
         def sout = new StringBuilder(), serr = new StringBuilder()
@@ -1046,5 +1047,18 @@ class VisorJob {
         println "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos --> problemas: $problemas"
     }
 
+    def verifica_tp09() {
+        print "verifica tp09 -->"
+        def cn = dbConnectionService.getConnection()
+        def sql = ""
+        def salida = ""
+
+        sql = "select * from survey.verifica_tp09()"
+        cn.eachRow(sql.toString()) { d ->
+            salida = d.verifica_tp09
+        }
+        cn.execute(sql.toString())
+        println " ... ${salida}"
+    }
 
 }
