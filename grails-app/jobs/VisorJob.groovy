@@ -413,7 +413,7 @@ class VisorJob {
                 sql = "select distinct opoint_id id from survey.data where magnitude_id = ${mg.id} and " +
                         "avg1m is not null order by 1"
 */
-                println "mg--> ${mg.id}"
+//                println "mg--> ${mg.id}"
 
                 estc = cn.rows(sql.toString())
 //            println "....2 estc: ${estc}"
@@ -459,7 +459,7 @@ class VisorJob {
                                     salida = dt.promedios
                                 }
 
-                                println " procesa ${prcs}: magnitud: ${mg.id} con estc: ${es.id} --> $salida"
+                                println "calc: ${prcs}: magnitud: ${mg.id} con estc: ${es.id} --> $salida"
                                 cnta++
                                 lecturasService.procesoHecho(mg.id, es.id, prcs, salida, frmtFcha.format(fcha), frmtFcha.format(fchaFin), salida)
 //                                salidaTotal += salidaTotal ? "\n${salida}" : salida
@@ -508,7 +508,7 @@ class VisorJob {
         proceso.each { prcs ->
             magn.each { mg ->
                 sql = "select distinct opoint_id id from survey.forecasting where magnitude_id = ${mg.id} order by 1"
-                println "mg--> ${mg.id}"
+//                println "mg--> ${mg.id}"
                 estc = cn.rows(sql.toString())
 //            println "....2 estc: ${estc}"
 
@@ -549,7 +549,7 @@ class VisorJob {
                                     salida = dt.promedios_fore
                                 }
 
-                                println " procesa forecasting ${prcs}: magnitud: ${mg.id} con estc: ${es.id} --> $salida"
+                                println "calc fore: ${prcs}: magnitud: ${mg.id} con estc: ${es.id} --> $salida"
                                 cnta++
                                 lecturasService.procesoFore(mg.id, es.id, prcs, salida, frmtFcha.format(fcha), frmtFcha.format(fchaFin), salida)
 //                                salidaTotal += salidaTotal ? "\n${salida}" : salida
