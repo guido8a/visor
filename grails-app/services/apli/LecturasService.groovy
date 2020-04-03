@@ -399,8 +399,8 @@ class LecturasService {
 */
                 sql = "insert into ${tbla}(id, magnitude_id, opoint_id, datatype_id, datetime, avg1m) " +
                         "values(default, ${vrbl}, ${estc[cnta]}, 1, '${fcha.format('yyyy-MM-dd HH:mm')}', ${rg.toDouble()}) " +
-                        "on conflict (magnitude_id, opoint_id, datetime, datatype_id) " +
-                        "do update set avg1m = ${rg.toDouble()}"
+                        "on conflict (magnitude_id, opoint_id, datetime) " +
+                        "do update set avg1m = ${rg.toDouble()}, datatype_id = 1"
 //                println "sql: $sql"
                 try {
 //                    println "inserta: $inserta"
@@ -663,8 +663,10 @@ class LecturasService {
                 }
                 sql = "insert into survey.data (id, magnitude_id, opoint_id, datatype_id, datetime, avg1m) " +
                         "values(default, ${magn[cnta]}, ${mg_es}, 1, '${fcha.format('yyyy-MM-dd HH:mm')}', ${rg.toDouble()}) " +
-                        "on conflict (magnitude_id, opoint_id, datetime, datatype_id) " +
-                        "do update set avg1m = ${rg.toDouble()}"
+                        "on conflict (magnitude_id, opoint_id, datetime) " +
+                        "do update set avg1m = ${rg.toDouble()}, datatype_id = 1"
+//                        "on conflict (magnitude_id, opoint_id, datetime, datatype_id) " +
+//                        "do update set avg1m = ${rg.toDouble()}"
 //                println "sql: $sql"
 
                 try {
@@ -716,8 +718,10 @@ class LecturasService {
                 }
                 sql = "insert into survey.data (id, magnitude_id, opoint_id, datatype_id, datetime, avg1h) " +
                         "values(default, ${magn[cnta]}, ${mg_es}, 1, '${fcha.format('yyyy-MM-dd HH:mm')}', ${rg.toDouble()}) " +
-                        "on conflict (magnitude_id, opoint_id, datetime, datatype_id) " +
-                        "do update set avg1h = ${rg.toDouble()}"
+                        "on conflict (magnitude_id, opoint_id, datetime) " +
+                        "do update set avg1h = ${rg.toDouble()}, datatype_id = 1"
+//                        "on conflict (magnitude_id, opoint_id, datetime, datatype_id) " +
+//                        "do update set avg1h = ${rg.toDouble()}"
                 sqlUp = "update survey.data set avg1m = null where  magnitude_id = ${magn[cnta]} and opoint_id =  ${mg_es} and " +
                         " datatype_id = 1 and datetime = '${fcha.format('yyyy-MM-dd HH:mm')}'"
 //                println "sql: $sql"
