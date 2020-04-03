@@ -53,7 +53,7 @@ class VisorJob {
         calc_fore_dir()
         calc_fore_hoy()
         calc_dir_fore_hoy()
-        verifica_tp09()
+//        verifica_tp09() -- ya no hace falta por el data_idxunique05 UNIQUE (datetime, opoint_id, magnitude_id)
 
 /*
         def sout = new StringBuilder(), serr = new StringBuilder()
