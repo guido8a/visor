@@ -12,7 +12,7 @@ class VisorJob {
 
     static triggers = {
 
-        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 2  /* cada 2 horas */
+        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 8  /* cada 2 horas */
 //
 //        simple startDelay: 1000 * 60*60, repeatInterval: 1000 * 60 * 60 * 50  /* nunca */
 //        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 * 30 /* a los 3 segundos -- repite cada 30 min */
@@ -42,17 +42,18 @@ class VisorJob {
         data_nasa('prod')  // carga datos de forecasting NASA
 
         cargaArchivo('prod')
-        cargaArchHora('prod')
+//        cargaArchHora('prod')
         calcular()
         calcularDir()
         activar()
         calcularHoy()
         calcularDirHoy()
-//
+
         calc_fore()
         calc_fore_dir()
         calc_fore_hoy()
         calc_dir_fore_hoy()
+
 //        verifica_tp09() -- ya no hace falta por el data_idxunique05 UNIQUE (datetime, opoint_id, magnitude_id)
 
 /*
