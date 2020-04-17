@@ -11,11 +11,10 @@ class VisorJob {
     def dbConnectionService
 
     static triggers = {
-
         simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 2  /* cada 2 horas */
 //
 //        simple startDelay: 1000 * 60*60, repeatInterval: 1000 * 60 * 60 * 50  /* nunca */
-//        simple startDelay: 1000 * 3, repeatInterval: 1000 * 60 * 30 /* a los 3 segundos -- repite cada 30 min */
+//        simple startDelay: 1000 * 5, repeatInterval: 1000 * 60 * 60 * 30 /* a los 5 segundos -- repite cada 30 horas */
     }
 
 
@@ -41,8 +40,10 @@ class VisorJob {
         println ">>> Inicia cargado de datos de archivos en ../data: ${new Date()}"
         data_nasa('prod')  // carga datos de forecasting NASA
 
+//        cargaArchHora('prod')  /* habilitar solo en caso de subir nueva data de horas **/
+
+
         cargaArchivo('prod')
-//        cargaArchHora('prod')
         calcular()
         calcularDir()
         activar()
@@ -55,6 +56,10 @@ class VisorJob {
         calc_dir_fore_hoy()
 
 //        verifica_tp09() -- ya no hace falta por el data_idxunique05 UNIQUE (datetime, opoint_id, magnitude_id)
+
+        verifica_10m()
+        verifica_1h()
+
 
 /*
         def sout = new StringBuilder(), serr = new StringBuilder()
@@ -1061,5 +1066,47 @@ class VisorJob {
         cn.execute(sql.toString())
         println " ... ${salida}"
     }
+
+    def verifica_10m() {
+        println "verifica 10m ..."
+        def cn = dbConnectionService.getConnection()
+        def sql = ""
+        def magn = []
+
+        sql = "select distinct id from survey.magnitude where active = 'S' order by 1"
+        magn = cn.rows(sql.toString())
+//        println "....1"
+
+        magn.each { mg ->
+            sql = "select * from survey.verifica_10m(${mg.id});"
+            print "mg: ${mg.id} --> "
+            cn.eachRow(sql.toString()) { d ->
+                println "${d.verifica_10m}"
+
+            }
+        }
+    }
+
+    def verifica_1h() {
+        println "verifica 1h ..."
+        def cn = dbConnectionService.getConnection()
+        def sql = ""
+        def magn = []
+
+        sql = "select distinct id from survey.magnitude where active = 'S' order by 1"
+        magn = cn.rows(sql.toString())
+//        println "....1"
+
+        magn.each { mg ->
+            sql = "select * from survey.verifica_1h(${mg.id});"
+            print "mg: ${mg.id} --> "
+            cn.eachRow(sql.toString()) { d ->
+                println "${d.verifica_1h}"
+
+            }
+        }
+    }
+
+
 
 }
