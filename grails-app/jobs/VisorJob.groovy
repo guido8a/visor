@@ -11,10 +11,10 @@ class VisorJob {
     def dbConnectionService
 
     static triggers = {
-        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 2  /* cada 2 horas */
+//        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 2  /* cada 2 horas */
 //
 //        simple startDelay: 1000 * 60*60, repeatInterval: 1000 * 60 * 60 * 50  /* nunca */
-//        simple startDelay: 1000 * 5, repeatInterval: 1000 * 60 * 60 * 30 /* a los 5 segundos -- repite cada 30 horas */
+        simple startDelay: 1000 * 5, repeatInterval: 1000 * 60 * 60 * 30 /* a los 5 segundos -- repite cada 30 horas */
     }
 
 
@@ -201,7 +201,7 @@ class VisorJob {
                             }
 
 //                            if(rgst.size() > 0 && rgst[1]) cuenta++  /* se cuentan sólo si hay valores */
-                            if (cuenta > 3 && rgst[1] != 0) {  /* se cuentan sólo si hay valores */
+                            if (cuenta > 2 && rgst[1] != 0) {  /* se cuentan sólo si hay valores */
                                 cuenta++
                             } else {
                                 cuenta++
@@ -406,7 +406,7 @@ class VisorJob {
         def fchaFin
         def frmtFcha = new SimpleDateFormat("yyyy-MM-dd")
 
-        sql = "select distinct id from survey.magnitude where active = 'S' and id != 82 order by 1"
+        sql = "select distinct id from survey.magnitude where active = 'S' and id not in (81,82) order by 1"
         magn = cn.rows(sql.toString())
 //        println "....1"
 
@@ -506,7 +506,7 @@ class VisorJob {
         def fchaFin
         def frmtFcha = new SimpleDateFormat("yyyy-MM-dd")
 
-        sql = "select distinct magnitude_id id from survey.forecasting where magnitude_id != 82 order by 1"
+        sql = "select distinct magnitude_id id from survey.forecasting where magnitude_id not in (81,82) order by 1"
         magn = cn.rows(sql.toString())
 //        println "....1"
 
@@ -579,7 +579,7 @@ class VisorJob {
     }
 
     def calcularDir() {
-        println "calcularDir job --"
+        println "calcularDir job -->"
         def cn = dbConnectionService.getConnection()
         def sql = ""
         def sql1 = ""
@@ -801,7 +801,7 @@ class VisorJob {
         def fchaFin = new Date()
         def fcha = fchaFin - 5
 
-        sql = "select distinct id from survey.magnitude where active = 'S' and id != 82 order by 1"
+        sql = "select distinct id from survey.magnitude where active = 'S' and id not in (81, 82) order by 1"
         magn = cn.rows(sql.toString())
         proceso.each { prcs ->
             magn.each { mg ->
@@ -834,7 +834,7 @@ class VisorJob {
         def fchaFin = new Date()
         def fcha = fchaFin - 5
 
-        sql = "select distinct magnitude_id id from survey.forecasting where magnitude_id != 82 order by 1"
+        sql = "select distinct magnitude_id id from survey.forecasting where magnitude_id not in (81, 82) order by 1"
         magn = cn.rows(sql.toString())
         proceso.each { prcs ->
             magn.each { mg ->

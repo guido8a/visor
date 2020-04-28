@@ -642,6 +642,9 @@ class LecturasService {
         def fcha
         def cn = dbConnectionService.getConnection()
         def sql = ""
+        def sqlUp = ""
+        def sqlLt = ""
+        def cmpo = ""
         def mg_es = ""
         def xx_es = [1:51, 6:41, 7:31]
 
@@ -661,16 +664,34 @@ class LecturasService {
                 } else {
                     mg_es = estc[cnta]
                 }
-                sql = "insert into survey.data (id, magnitude_id, opoint_id, datatype_id, datetime, avg1m) " +
+                /* determina si es dato horario o por minuot */
+                sqlLt = "select interval from survey.interval where magnitude_id = ${magn[cnta]} and opoint_id = ${mg_es}"
+//                println "sqlLt: $sqlLt"
+//                cmpo = cn.rows(sqlLt.toString())[0]?.interval
+//                println "cmpo: $cmpo"
+                cmpo = cn.rows(sqlLt.toString())[0]?.interval == '1 minuto' ? "avg1m" : "avg1h"
+
+                sql = "insert into survey.data (id, magnitude_id, opoint_id, datatype_id, datetime, ${cmpo}) " +
                         "values(default, ${magn[cnta]}, ${mg_es}, 1, '${fcha.format('yyyy-MM-dd HH:mm')}', ${rg.toDouble()}) " +
                         "on conflict (magnitude_id, opoint_id, datetime) " +
-                        "do update set avg1m = ${rg.toDouble()}, datatype_id = 1"
+                        "do update set ${cmpo} = ${rg.toDouble()}, datatype_id = 1"
 //                        "on conflict (magnitude_id, opoint_id, datetime, datatype_id) " +
 //                        "do update set avg1m = ${rg.toDouble()}"
 //                println "sql: $sql"
 
+                if(cmpo == 'avg1h') {
+                    sqlUp = "update survey.data set avg1m = null where  magnitude_id = ${magn[cnta]} and opoint_id =  ${mg_es} and " +
+                            " datatype_id = 1 and datetime = '${fcha.format('yyyy-MM-dd HH:mm')}'"
+                } else {
+                    sqlUp = ""
+                }
+
                 try {
                     cn.execute(sql.toString())
+                    if(sqlUp) {
+//                        println "ejecuta sqlUp: $sqlUp"
+                        cn.execute(sqlUp.toString())
+                    }
 //                    println "inserta: $sql"
 //                    println ">> ${cn.updateCount}"
                     if (cn.updateCount > 0) {
