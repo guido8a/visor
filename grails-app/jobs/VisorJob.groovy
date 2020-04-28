@@ -11,10 +11,10 @@ class VisorJob {
     def dbConnectionService
 
     static triggers = {
-//        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 2  /* cada 2 horas */
+        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 4  /* cada 2 horas */
 //
 //        simple startDelay: 1000 * 60*60, repeatInterval: 1000 * 60 * 60 * 50  /* nunca */
-        simple startDelay: 1000 * 5, repeatInterval: 1000 * 60 * 60 * 30 /* a los 5 segundos -- repite cada 30 horas */
+//        simple startDelay: 1000 * 5, repeatInterval: 1000 * 60 * 60 * 30 /* a los 5 segundos -- repite cada 30 horas */
     }
 
 
