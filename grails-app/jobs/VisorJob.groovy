@@ -11,7 +11,7 @@ class VisorJob {
     def dbConnectionService
 
     static triggers = {
-        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 4  /* cada 2 horas */
+        simple startDelay: 1000 * 60 * 1, repeatInterval: 1000 * 60 * 60 * 2  /* cada 2 horas */
 //
 //        simple startDelay: 1000 * 60*60, repeatInterval: 1000 * 60 * 60 * 50  /* nunca */
 //        simple startDelay: 1000 * 5, repeatInterval: 1000 * 60 * 60 * 30 /* a los 5 segundos -- repite cada 30 horas */
@@ -636,7 +636,7 @@ class VisorJob {
                                 salida = dt.promedios_dir
                             }
 
-                            println "procesa dirección viento ${prcs} con estc: ${es.id} --> $salida"
+                            println " --> $salida"
                             cnta++
                             lecturasService.procesoHecho(82, es.id, prcs, salida, fcha.format('yyyy-MM-dd'), fchaFin.format('yyyy-MM-dd'), salida)
 //                            salidaTotal += salidaTotal ? "\n${salida}" : salida
