@@ -57,8 +57,8 @@ class VisorJob {
 
 //        verifica_tp09() -- ya no hace falta por el data_idxunique05 UNIQUE (datetime, opoint_id, magnitude_id)
 
-        verifica_10m()
-        verifica_1h()
+        verifica_10m()   /* si */
+        verifica_1h()    /* si */
 
 
 /*
@@ -143,8 +143,9 @@ class VisorJob {
                                 line = line.replace(",", ".")
                             }
 
-                            rgst = line.split(';')
+                            rgst = line.split(';').toList()
                             rgst = rgst*.trim()
+                            if(rgst.size() < (line.count(';') + 1)) rgst.add('')
 
 //                        println "***** $rgst   cuenta: $cuenta"
 
@@ -170,7 +171,7 @@ class VisorJob {
 
 //                            } else if (rgst[0] && rgst[0] != 'FECHA' && rgst[0].toString().toLowerCase() != 'date' && rgst[0]?.size() > 8) {
                             } else if (rgst[0] && rgst[0] != 'FECHA' && rgst[0].toString().toLowerCase() != 'date') {
-//                            println "\n cuenta: $cuenta, fecha: ${rgst[0]}"
+//                            println "\n cuenta: $cuenta, registro: ${rgst} con ${rgst.size()} datos"
 //                                fcha = new Date().parse('yyyy-MM-dd HH:mm:ss', rgst[0])
                                 fcha = null
                                 try {
@@ -365,7 +366,7 @@ class VisorJob {
 //                        lecturasService.archivoSubido(arch, cont, repetidos)
                         lecturasService.archivoHoras(arch, cont, repetidos)
                     }
-                    println "--> cont: $cont, repetidos: $repetidos"   /** menaje de cargado de archivo **/
+//                    println "--> cont: $cont, repetidos: $repetidos"   /** menaje de cargado de archivo **/
                 }
             }
 //            println "---> archivo: ${ar.toString()} --> cont: $cont, repetidos: $repetidos"

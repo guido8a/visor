@@ -655,7 +655,7 @@ class LecturasService {
         cnta = 0
         rgst.each() { rg ->
 //            println "--> estación: ${estc[cnta]}, valor: $rg, tipo: ${rg.class}, ${rg.size()}"
-            if (rg.toString().size() > 0) {
+            if (rg.toString().size() >= 0) {
 //                println "--> estaciónes: $estc --> ${estc[cnta]}, mag: ${magn[cnta]}, valor: $rg"
                 if((estc[cnta].toInteger() in xx_es.keySet()) && (magn[cnta].toInteger() in [99, 201])) {
                     mg_es = xx_es[estc[cnta].toInteger()]
@@ -671,12 +671,18 @@ class LecturasService {
 //                println "cmpo: $cmpo"
                 cmpo = cn.rows(sqlLt.toString())[0]?.interval == '1 minuto' ? "avg1m" : "avg1h"
 
-                sql = "insert into survey.data (id, magnitude_id, opoint_id, datatype_id, datetime, ${cmpo}) " +
-                        "values(default, ${magn[cnta]}, ${mg_es}, 1, '${fcha.format('yyyy-MM-dd HH:mm')}', ${rg.toDouble()}) " +
-                        "on conflict (magnitude_id, opoint_id, datetime) " +
-                        "do update set ${cmpo} = ${rg.toDouble()}, datatype_id = 1"
-//                        "on conflict (magnitude_id, opoint_id, datetime, datatype_id) " +
-//                        "do update set avg1m = ${rg.toDouble()}"
+                if(rg == "") {
+                    sql = "insert into survey.data (id, magnitude_id, opoint_id, datatype_id, datetime, ${cmpo}) " +
+                            "values(default, ${magn[cnta]}, ${mg_es}, 1, '${fcha.format('yyyy-MM-dd HH:mm')}', null) " +
+                            "on conflict (magnitude_id, opoint_id, datetime) " +
+                            "do update set ${cmpo} = null, datatype_id = 1"
+//                    print "datos nulos"
+                } else {
+                    sql = "insert into survey.data (id, magnitude_id, opoint_id, datatype_id, datetime, ${cmpo}) " +
+                            "values(default, ${magn[cnta]}, ${mg_es}, 1, '${fcha.format('yyyy-MM-dd HH:mm')}', ${rg.toDouble()}) " +
+                            "on conflict (magnitude_id, opoint_id, datetime) " +
+                            "do update set ${cmpo} = ${rg.toDouble()}, datatype_id = 1"
+                }
 //                println "sql: $sql"
 
                 if(cmpo == 'avg1h') {
