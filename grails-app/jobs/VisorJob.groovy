@@ -50,10 +50,10 @@ class VisorJob {
         calcularHoy()
         calcularDirHoy()
 
-        calc_fore()
-        calc_fore_dir()
-        calc_fore_hoy()
-        calc_dir_fore_hoy()
+//        calc_fore()
+//        calc_fore_dir()
+//        calc_fore_hoy()
+//        calc_dir_fore_hoy()
 
 //        verifica_tp09() -- ya no hace falta por el data_idxunique05 UNIQUE (datetime, opoint_id, magnitude_id)
 
@@ -411,7 +411,8 @@ class VisorJob {
         magn = cn.rows(sql.toString())
 //        println "....1"
 
-        proceso = ['10 minutes', '1 hours', '3 hours', '8 hours', '24 hours', '72 hours']
+//        proceso = ['10 minutes', '1 hours', '3 hours', '8 hours', '24 hours', '72 hours']
+        proceso = ['10 minutes', '1 hours']
         proceso.each { prcs ->
             magn.each { mg ->
 //                sql = "select distinct opoint_id id from partitions.data${mg.id} where avg1m is not null order by 1"
@@ -596,7 +597,8 @@ class VisorJob {
         def fcha
         def fchaFin
 
-        proceso = ['10 minutes', '1 hours', '3 hours', '8 hours', '24 hours', '72 hours']
+//        proceso = ['10 minutes', '1 hours', '3 hours', '8 hours', '24 hours', '72 hours']
+        proceso = ['10 minutes', '1 hours']
         proceso.each { prcs ->
 
             sql = "select distinct opoint_id id from survey.data where magnitude_id = 82 and " +
@@ -798,7 +800,8 @@ class VisorJob {
         def magn = []
         def estc = []
         def salida = ""
-        def proceso = ['10 minutes', '1 hours', '3 hours', '8 hours', '24 hours', '72 hours']
+//        def proceso = ['10 minutes', '1 hours', '3 hours', '8 hours', '24 hours', '72 hours']
+        def proceso = ['10 minutes', '1 hours']
         def fchaFin = new Date()
         def fcha = fchaFin - 5
 
@@ -864,7 +867,8 @@ class VisorJob {
         def magn = []
         def estc = []
         def salida = ""
-        def proceso = ['10 minutes', '1 hours', '3 hours', '8 hours', '24 hours', '72 hours']
+//        def proceso = ['10 minutes', '1 hours', '3 hours', '8 hours', '24 hours', '72 hours']
+        def proceso = ['10 minutes', '1 hours']
         def fchaFin = new Date()
         def fcha = fchaFin - 5
 
